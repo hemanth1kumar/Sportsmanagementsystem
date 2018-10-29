@@ -10,8 +10,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
           crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <title>B14rontend</title>
 
     <script type="text/javascript">
@@ -59,7 +58,60 @@
     }
   }
 </script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.dropbtn {
+    background-color: #3498DB;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
 
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #2980B9;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+</style>
 </head>
 
 
@@ -70,38 +122,49 @@
     position: absolute;
     left: 300px;
 }
+
+
+
 </style>
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-0">
     <div class="container">
-        <a href={%  url 'studenthome' %} class="navbar-brand"> <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/49/IIIT_Sri_City_Logo.png/220px-IIIT_Sri_City_Logo.png" style="width: 50px; height: 50px; margin-right: 8px;"> SPORTS MANAGEMENT SYSTEM</a>
+        <a href={%  url 'coachhome' %} class="navbar-brand"> <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/49/IIIT_Sri_City_Logo.png/220px-IIIT_Sri_City_Logo.png" style="width: 50px; height: 50px; margin-right: 8px;"> SPORTS MANAGEMENT SYSTEM</a>
         <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav">
                 <li class="nav-item px-2">
-                    <a href={%  url 'studenthome' %} class="nav-link">Dashboard</a>
-                </li>
-                <li class="nav-item px-2">
-                    <a href={%  url 'studentschedules' %} class="nav-link">Schedules</a>
-                </li>
-                <li class="nav-item px-2">
-                    <a href={%  url 'studentcomplaints' %} class="nav-link">Complaints</a>
-                </li>
-                <li class="nav-item px-2">
-                    <a href={%  url 'studentmatchresults' %} class="nav-link active">Matchresults</a>
+                    <a href={%  url 'coachhome' %} class="nav-link">Dashboard</a>
                 </li>
                 
-            </ul>
+               <li class="nav-item px-2">
+                    <a href={%  url 'coachschedules' %} class="nav-link">schedules</a>
+                </li>
+                
+                <li class="nav-item px-2">
+                    <a href={%  url 'coachcomplaints' %} class="nav-link ">complaints</a>
+                  </li>
+                  <li class="nav-item px-2">
+                    <a href={%  url 'coachmatchresults' %} class="nav-link">Match Results</a>
+                  </li>
+                <li class="nav-item px-2">
+                    <a href={%  url 'coachsettings' %} class="nav-link">settings</a>
+                </li>
+                </ul>
 
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown mr-3">
-                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                        <i class="fas fa-user"></i> Welcome Brad
+                    <a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown">
+                        <i class=""></i> Player performance
                     </a>
                     <div class="dropdown-menu">
-                        <a href={%  url 'studentsettings' %} class="dropdown-item">
-                            <i class="fas fa-cog"></i> Settings
+                        <a href={%  url 'coachperformance' %} class="dropdown-item">
+                            <i class=""></i> View performance
+                        </a>
+                        <a href={%  url 'coachupdateperformance' %} class="dropdown-item">
+                            <i class=""></i> Update Performance
                         </a>
                     </div>
                 </li>
@@ -111,61 +174,73 @@
                     </a>
                 </li>
             </ul>
+
+
         </div>
     </div>
-</nav>
+</nav> 
 <br>
+<script>
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
+
 <section >
     
-      <div class="row"">
+     <div class="row">
         &nbsp
   &nbsp
-        <div class="w3-card-4" style="width: 68%"">
-          <div class="card text-center bg-primary text-white mb-3"  style="width:100%;">
+        <div class="w3-card-4" style="width:69%;height:810px; background: #e4e4e4">
+          <div class="card text-center bg-primary mb-3">
             <div class="col-md-13" >
-                <h1>
-                    <i class="fa fa-tachometer-alt"></i> Match results</h1>
+                <h1 class="fa fa-tachometer-alt">Update Performance</h1>
             </div>  
+          
           </div>
 
-         <table class="table table-striped">
-          <thead class="thead-dark">
-          <tr>
-                <th> Sport Name</th>
-                <th> Team1</th>
-                <th>Team2</th>
-                <th> Date</th>
-                <th> Time</th>
-                <th> Result</th>
-            </tr>
-         </thead>
-         </table>
+            
+            &nbsp
+           
+             
+            <div>
+            <center>
+           <form action="{% url 'coachaddperformance' %}" method="post" >
+        {%csrf_token %}
+        <p><label style="width: 15%;" for="studentid">student id</label><input type="text" name="studentid" style="width: 30%;" required></p>
+        <p><label style="width: 15%;" for="sportname">Sport Name</label><input type="text" name="sportname"style="width: 30%;" required></p>
+        <p><label style="width: 15%;" for="role">Role</label><input type="text" name="role" style="width: 30%;" required></p>
+        <p><label style="width: 15%;" for="performance">performance</label><input type="text" name="performance" style="width: 30%;" required></p>
+        
 
-         <div style="overflow: auto; height: 600px;" >
-                
-            <table class="table table-striped">
-              <tbody >
-                {% for item in schedules %}
-                <tr >
-                  <td></td>
-                  <td>{{ item.sport.sport_name }}</td>
-                  <td>{{ item.opponent_1 }}</td>
-                  <td>{{ item.opponent_2 }}</td>
-                  <td>{{item.datetime}}</td>  
-                  <td>{{item.venue}}</td>
-                  <td>{{item.result}}</td>
-                </tr>
-                {% endfor %}
-              </tbody>
-              
-            </table>
-            </div>
+        <button class="button" type="submit" value="submit">ADD PERFORMANCE</button>
+        </form>
+        </center>    
 
+              </div>
+          
          </div>
-&nbsp
-
-        <div class="w3-card-4" style="width: 30%">
-          <div class="card text-center bg-primary  mb-3">
+      &nbsp 
+      <div> 
+        <div class="w3-card-4" style="width: 110%;height:500px ;background: #e4e4e4" >
+          <div class="card text-center bg-primary text-white mb-3"  >
             <div class="col-md-13">
                 <h1>
                     <i class="fas fa-cog"></i> announcements</h1>
@@ -180,7 +255,7 @@
                   <th></th>
                 </tr>
               </thead>
-            </table>
+            </table> <br>
             <div style="overflow: auto; height: 600px;" >
                 
             <table class="table table-striped">
@@ -195,12 +270,29 @@
               </tbody>
               
             </table>
+           </div>
             </div>
-        </div>
+              &nbsp
+            <div class="card text-center mb-4" style="width: 110%;background: #e4e4e4; height:35%">
+           <div class="card text-center bg-primary mb-3"   >
+            <div class="col-md-13">
+                <h1>
+                    <i class="fas fa-cog"> Send announcements</i>
+                </h1>
+            </div>
+           </div>
+                <form action="{% url 'coachupdateperformance' %}" method="post" >
+        {%csrf_token %}
 
- 
-     </div>
+        <p><label for="message">enter announcement:</label><br><textarea required name="message" style="width: 80%"></textarea></p>
+         <button class="button" type="submit" value="submit"> send</button>
+          
+        </form>
+              </div>
+            </div>
   </section>
+
+
 <!-- FOOTER -->
 <footer id="main-footer" class="bg-dark text-white mt-5 p-5">
     <div class="container">

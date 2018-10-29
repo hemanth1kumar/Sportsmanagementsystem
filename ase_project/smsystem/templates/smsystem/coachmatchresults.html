@@ -10,8 +10,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
           crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <title>B14rontend</title>
 
     <script type="text/javascript">
@@ -70,38 +69,65 @@
     position: absolute;
     left: 300px;
 }
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+}
+
+fieldset { 
+    overflow: hidden; 
+    display: inline-block;
+    width: 500px;
+}
 </style>
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-0">
     <div class="container">
-        <a href={%  url 'studenthome' %} class="navbar-brand"> <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/49/IIIT_Sri_City_Logo.png/220px-IIIT_Sri_City_Logo.png" style="width: 50px; height: 50px; margin-right: 8px;"> SPORTS MANAGEMENT SYSTEM</a>
+        <a href={%  url 'coachhome' %} class="navbar-brand"> <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/49/IIIT_Sri_City_Logo.png/220px-IIIT_Sri_City_Logo.png" style="width: 50px; height: 50px; margin-right: 8px;"> SPORTS MANAGEMENT SYSTEM</a>
         <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav">
                 <li class="nav-item px-2">
-                    <a href={%  url 'studenthome' %} class="nav-link">Dashboard</a>
-                </li>
-                <li class="nav-item px-2">
-                    <a href={%  url 'studentschedules' %} class="nav-link active">Schedules</a>
-                </li>
-                <li class="nav-item px-2">
-                    <a href={%  url 'studentcomplaints' %} class="nav-link">Complaints</a>
-                </li>
-                <li class="nav-item px-2">
-                    <a href={%  url 'studentmatchresults' %} class="nav-link">Matchresults</a>
+                    <a href={%  url 'coachhome' %} class="nav-link">Dashboard</a>
                 </li>
                 
-            </ul>
+               <li class="nav-item px-2">
+                    <a href={%  url 'coachschedules' %} class="nav-link ">schedules</a>
+                </li>
+                
+                <li class="nav-item px-2">
+                    <a href={%  url 'coachcomplaints' %} class="nav-link">complaints</a>
+                  </li>
+                  <li class="nav-item px-2">
+                    <a href={%  url 'coachmatchresults' %} class="nav-link active">Match Results</a>
+                  </li>
+                <li class="nav-item px-2">
+                    <a href={%  url 'coachsettings' %} class="nav-link">settings</a>
+                </li>
+                </ul>
 
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown mr-3">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                        <i class="fas fa-user"></i> Welcome Brad
+                        <i class=""></i> Player performance
                     </a>
                     <div class="dropdown-menu">
-                        <a href={%  url 'studentsettings' %} class="dropdown-item">
-                            <i class="fas fa-cog"></i> Settings
+                        <a href={%  url 'coachperformance' %} class="dropdown-item">
+                            <i class=""></i> View performance
+                        </a>
+                        <a href={%  url 'coachupdateperformance' %} class="dropdown-item">
+                            <i class=""></i> Update Performance
                         </a>
                     </div>
                 </li>
@@ -111,37 +137,38 @@
                     </a>
                 </li>
             </ul>
+
+
         </div>
     </div>
 </nav>
 <br>
 <section >
-    
-      <div class="row"">
+     <div class="row"">
         &nbsp
   &nbsp
-        <div class="w3-card-4" style="width: 68%">
+        <div class="w3-card-4" style="width: 68%;">
           <div class="card text-center bg-primary text-white mb-3"  style="width:100%;">
             <div class="col-md-13" >
                 <h1>
-                    <i class="fa fa-tachometer-alt"></i> Schedules</h1>
+                    <i class="fa fa-tachometer-alt"></i> matchresults</h1>
             </div>  
           </div>
 
          <table class="table table-striped">
           <thead class="thead-dark">
-         	<tr>
-            <th>Tournament Name</th>
-         		<th> Sport Name</th>
-         		<th> Team1</th>
-         		<th> Team2</th>
-         		<th> Date and time</th>
+          <tr>
+            <th> Sport Name</th>
+            <th> Team1</th>
+            <th> Team2</th>
+            <th> Date and time</th>
             <th> Venue</th>
-         	</tr>
+            <th>result</th>
+          </tr>
          </thead>
          </table>
 
-         <div style="overflow: auto; height: 600px;" >
+         <div style="overflow: auto; height: 580px;" >
                 
             <table class="table table-striped">
               <tbody >
@@ -153,6 +180,7 @@
                   <td>{{ item.opponent_2 }}</td>
                   <td>{{item.datetime}}</td>  
                   <td>{{item.venue}}</td>
+                  <td>{{item.result}}</td>
                 </tr>
                 {% endfor %}
               </tbody>
@@ -161,16 +189,15 @@
             </div>
 
          </div>
-&nbsp
-
-        <div class="w3-card-4" style="width: 30%">
-          <div class="card text-center bg-primary  mb-3">
+      &nbsp  
+            <div class="w3-card-4" style="width: 30%;">
+          <div class="card text-center bg-primary text-white mb-3"  >
             <div class="col-md-13">
                 <h1>
                     <i class="fas fa-cog"></i> announcements</h1>
             </div>
           </div>
-          <table class="table table-striped">
+            <table class="table table-striped">
               <thead class="thead-dark">
                 <tr>
                   <th>sender</th>
@@ -180,7 +207,7 @@
                 </tr>
               </thead>
             </table>
-            <div style="overflow: auto; height: 600px;" >
+            <div style="overflow: auto; height: 580px;" >
                 
             <table class="table table-striped">
               <tbody >
@@ -194,13 +221,61 @@
               </tbody>
               
             </table>
+
             </div>
+
         </div>
-
- 
-     </div>
   </section>
+  <section >
+    
+      <div class="row" >
+        <div class="w3-card-4" style="width:69%;background: #e4e4e4" >
+          <div class="card text-center bg-primary text-white mb-3" ">
+            <div class="col-md-13" >
+                <h1>
+                    <i class="fa fa-tachometer-alt"></i>ADD RESULTS</h1>
+            </div>  
+      </div>
+     
+           <div style="overflow: auto; height: 470px;"  >
+                
+            <div >
+          <br>
+          <center>
+           <form action="{% url 'coachaddmatchresults' %}" method="post" >
+        {%csrf_token %}
+        <p><label style="width: 15%;" for="sportname">sport name:</label><input type="text" name="sportname" style="width: 30%;" required></p>
+        <p><label style="width: 15%;" for="result">Result:</label><input type="text" name="result" style="width: 30%;" required></p>
+		<p><label style="width: 15%;" for="venue">Venue:</label><input type="text" name="venue" style="width: 30%;" required></p>
 
+        <button class="button" type="submit" value="submit"> ADD RESULT</button>
+        </form>
+        </center>
+             
+            </div>
+
+            </div>
+      
+        </div>
+        &nbsp  
+        <div class="w3-card-4" style="width: 30%;background: #e4e4e4  " >
+          
+           <div class="card text-center bg-primary text-white mb-3"  >
+            <div class="col-md-13">
+                <h1>
+                    <i class="fas fa-cog"> Send announcements</i>
+                </h1>
+            </div>
+           </div>
+           <form action="{% url 'coachschedules' %}" method="post" >
+        {%csrf_token %}
+
+        <center><label for="message">ENTER ANNOUNCEMENT</label><br><textarea required name="message" style="width: 80%"></textarea></center>
+         <center><button class="button" type="submit" value="submit"> send</button></center>
+          
+        </form>
+        </div>
+  </section>
 
 <!-- FOOTER -->
 <footer id="main-footer" class="bg-dark text-white mt-5 p-5">

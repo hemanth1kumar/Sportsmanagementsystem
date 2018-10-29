@@ -10,10 +10,19 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
           crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <script>
+
+$(function(){
+    $('#profile_image').change( function(e) {
+        
+        var img = URL.createObjectURL(e.target.files[0]);
+        $('.image').attr('src', img);
+    });
+});
+
+</script>
     <title>B14rontend</title>
 
     <script type="text/javascript">
@@ -49,7 +58,7 @@
 	}
 
     function cleartext() {
-        document.getElementById('about').value="";
+        document.getElementById('texts').value="";
     }
 </script>
 
@@ -58,44 +67,46 @@
 
 <body>
 
-<style type="text/css">
-.tab {
-    position: absolute;
-    left: 300px;
-}
 
-</style>
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-0">
     <div class="container">
-        <a href={%  url 'studenthome' %} class="navbar-brand"> <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/49/IIIT_Sri_City_Logo.png/220px-IIIT_Sri_City_Logo.png" style="width: 50px; height: 50px; margin-right: 8px;"> SPORTS MANAGEMENT SYSTEM</a>
+        <a href={%  url 'coachhome' %} class="navbar-brand"> <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/49/IIIT_Sri_City_Logo.png/220px-IIIT_Sri_City_Logo.png" style="width: 50px; height: 50px; margin-right: 8px;"> SPORTS MANAGEMENT SYSTEM</a>
         <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav">
                 <li class="nav-item px-2">
-                    <a href={%  url 'studenthome' %} class="nav-link">Dashboard</a>
-                </li>
-                <li class="nav-item px-2">
-                    <a href={%  url 'studentschedules' %} class="nav-link">Schedules</a>
-                </li>
-                <li class="nav-item px-2">
-                    <a href={%  url 'studentcomplaints' %} class="nav-link active">Complaints</a>
-                </li>
-                <li class="nav-item px-2">
-                    <a href={%  url 'studentmatchresults' %} class="nav-link">Matchresults</a>
+                    <a href={%  url 'coachhome' %} class="nav-link">Dashboard</a>
                 </li>
                 
-            </ul>
+               <li class="nav-item px-2">
+                    <a href={%  url 'coachschedules' %} class="nav-link">schedules</a>
+                </li>
+                
+                <li class="nav-item px-2">
+                    <a href={%  url 'coachcomplaints' %} class="nav-link active">complaints</a>
+                  </li>
+                  <li class="nav-item px-2">
+                    <a href={%  url 'coachmatchresults' %} class="nav-link">Match Results</a>
+                  </li>
+                <li class="nav-item px-2">
+                    <a href={%  url 'coachsettings' %} class="nav-link">settings</a>
+                </li>
+                </ul>
 
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown mr-3">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                        <i class="fas fa-user"></i> Welcome Brad
+                        <i class=""></i> Player performance
                     </a>
                     <div class="dropdown-menu">
-                        <a href={%  url 'studentsettings' %} class="dropdown-item">
-                            <i class="fas fa-cog"></i> Settings
+                        <a href={%  url 'coachperformance' %} class="dropdown-item">
+                            <i class=""></i> View performance
+                        </a>
+                        <a href={%  url 'coachupdateperformance' %} class="dropdown-item">
+                            <i class=""></i> Update Performance
                         </a>
                     </div>
                 </li>
@@ -105,12 +116,59 @@
                     </a>
                 </li>
             </ul>
+
+
         </div>
     </div>
 </nav>
+
 <br>
 
 <style type="text/css">
+  textarea
+{
+width: 200px;
+height: 90px;
+border-radius: 3px;
+border: 1px solid #CCC;
+padding: 8px;
+font-weight: 200;
+font-size: 15px;
+font-family: Verdana;
+box-shadow: 1px 1px 5px #CCC;
+display: inline-block;
+}
+#circle
+{
+border-radius:50% 50% 50% 50%;  
+width:100px;
+height:100px;
+}
+
+
+
+
+label { float: left; width: 20%; }
+
+input { width: 70%; }
+
+
+.profile-pic {
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: multiply;
+    transition: all .3s ease;
+    text-decoration: none;
+}
+
+.image{
+    width:150px;
+    height:150px;
+    border-radius:50% 50% 50% 50%;
+}
 .button {
     background-color: #4CAF50; /* Green */
     border: none;
@@ -124,31 +182,66 @@
     cursor: pointer;
     border-radius: 12px;
 }
+
+
 </style>
 <section >
 
-  <div class="row" >
-    &nbsp
-  &nbsp
-
-       <div class="w3-card-4" style="width: 68% ;background: #e4e4e4">
-          <div class="card text-center bg-primary text-white mb-3" ">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="card text-center bg-primary text-white mb-3"  style="width:100%;">
             <div class="col-md-13" >
-                <h1>
-                    <i class="fa fa-pencil-square-o"></i>Send Complaints</h1>
+                <h1><i class="fa fa-tachometer-alt"></i> Settings</h1>
             </div>  
-          </div>
-          <form action="{% url 'studentcomplaints' %}" method="post" >
-        {%csrf_token %} 
-        <center><p><label for="about">WRITE ABOUT YOUR COMPLAINT:</label><textarea name="about" required id='texts' style="width:100%;height:300px;font-family: Arial" ></textarea></p></center>
-      <center><button class="button" onclick="cleartext()" type="submit" value="submit"> SUBMIT</button></center>
-          
-        </form>
-          
+           </div>
+        <div class="card text-center mb-3" style="background-color: #e4e4e4; height: 90%;">
+            &nbsp
+            <center>
+                <div class="card text-center bg-primary text-white mb-3" style="width: 15%;" >
+                <h3>Edit Details</h3> </div>
+            </center>
 
+        <div>
+                <div style="float: left;">
+                <img src="61789.jpg" class="image" style="float: left;">
+                
+                <br><br><br><br><br>
+                <span style="float: left;"> Change prof-pic <br><input type="file" id='profile_image' placeholder="change Image">
+                </span>
+                </div>
+
+        <center>
+                <p><label style="width:10%">Name:<span runat="server" ID="required" style="color:Red;" visible="false;" > *</span></label>
+                <input type="text" required style="width: 30%;"></p>
+          
+          
+                <p><label style="width:10%">Email:<span runat="server" ID="required" style="color:Red;" visible="false"> *</span> </label>
+                <input type="text" required style="width: 30%;"></p>
+          
+                <p><label style="width:10%">Contact:<span runat="server" ID="required" style="color:Red;" visible="false"> *</span></label>
+                <input type="text" required style="width: 30%;"></p>
+           
+           
+           
+                <p><label style="width:10%"> Password:<span runat="server" ID="required" style="color:Red;" visible="false"> *</span></label>
+                <input type="text" required style="width: 30%;"></p>
+                
+
+                <p><label style="width:10%">Retype:<span runat="server" ID="required" style="color:Red;" visible="false"> *</span></label></p>
+                <input type="text" required style="width: 30%;"></p>
+                &nbsp
+                <center><button class="button" type="submit" value="submit"> submit</button></center>
+           </center>
+        
         </div>
-   &nbsp  
-       <div class="w3-card-4" style="width: 30%">
+        </div>
+    </div>
+    
+   &nbsp
+
+       
+       <div> 
+          <div class="card text-center  mb-3" style="width: 110%  " >
           <div class="card text-center bg-primary text-white mb-3"  >
             <div class="col-md-13">
                 <h1>
@@ -161,7 +254,6 @@
                   <th>sender</th>
                   <th>Announcement</th>
                   <th>Sent time</th>
-                  <th></th>
                 </tr>
               </thead>
             </table>
@@ -183,10 +275,27 @@
             </div>
 
           </div>
+               <div class="w3-card-4" style="width: 120%;background: #e4e4e4  " >
+          
+           <div class="card text-center bg-primary text-white mb-3"  >
+            <div class="col-md-13">
+                <h1>
+                    <i class="fas fa-cog"> Send announcements</i>
+                </h1>
+            </div>
+           </div>
+                <form action="{% url 'coachsettings' %}" method="post" >
+              
+
+        <center>enter announcement:
+        <textarea required name="message" style="width: 80%"></textarea></center>
+         <center><button class="button" type="submit" value="submit"> send</button></center>
+        </form>
         </div>
+
+            </div>
   </section>
 
- 
 
 <!-- FOOTER -->
 <footer id="main-footer" class="bg-dark text-white mt-5 p-5">
