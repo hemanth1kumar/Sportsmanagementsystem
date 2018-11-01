@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>B14rontend</title>
+
+    <script type="text/javascript">
+	function addRow() {
+		var table=document.getElementById('MyTable');
+			var row=table.insertRow(0);
+			var cell = row.insertCell(0);
+			var row2=table.insertRow(0);
+            row2.insertCell(0);
+			//var x = document.getElementById("MyTable").getElementsByTagName("td");
+    		//	x[0].innerHTML = "hello folk";
+    		inRow();
+		// body...
+	}
+	function inRow() {
+			var table=document.getElementById('MyTable');
+			var row=table.insertRow(0);
+			var cell1 = row.insertCell(0);
+			//var inside = "new";
+			//var inside=document.getElementById('MyTable');
+			var td=document.getElementsByTagName("td");
+			var x = document.getElementById("MyTable").getElementsByTagName("td");
+    		x[0].innerHTML = "hello folks";
+    		x[0].style.backgroundColor = "black";
+    		document.getElementById("MyTable").insertRow(0);
+    		//table.insertColumn(1);
+			//td[0].style.color='black';
+			//var tr = document.getElementsByTagName("tr");
+			//tr[0].style.color='red';
+			//var inside=(document.getElementById('text').style.color='cyan');
+	}
+
+	function deleteRow(i) {
+		// body...
+		var table=document.getElementById('MyTable');
+		table.deleteRow(i);
+	}
+
+	function displayImg(score) {
+		// body...
+
+		if(score>=90) {
+			var c=document.getElementById('dis')
+		    c.value="hey";
+		}
+	}
+</script>
+
+</head>
+
+
+<body>
+
+<style type="text/css">
+.tab {
+    position: absolute;
+    left: 300px;
+}
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+}
+
+fieldset { 
+    overflow: hidden; 
+    display: inline-block;
+    width: 500px;
+}
+</style>
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark p-0">
+    <div class="container">
+        <a href={%  url 'coachhome' %} class="navbar-brand"> <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/49/IIIT_Sri_City_Logo.png/220px-IIIT_Sri_City_Logo.png" style="width: 50px; height: 50px; margin-right: 8px;"> SPORTS MANAGEMENT SYSTEM</a>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav">
+                <li class="nav-item px-2">
+                    <a href={%  url 'coachhome' %} class="nav-link">Dashboard</a>
+                </li>
+                
+               <li class="nav-item px-2">
+                    <a href={%  url 'coachschedules' %} class="nav-link ">Schedules</a>
+                </li>
+                
+                <li class="nav-item px-2">
+                    <a href={%  url 'coachcomplaints' %} class="nav-link">Complaints</a>
+                  </li>
+                  <li class="nav-item px-2">
+                    <a href={%  url 'coachmatchresults' %} class="nav-link active">Match Results</a>
+                  </li>
+                <li class="nav-item px-2">
+                    <a href={%  url 'coachsettings' %} class="nav-link">Settings</a>
+                </li>
+                </ul>
+
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown mr-3">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                        <i class=""></i> Player Performance
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href={%  url 'coachperformance' %} class="dropdown-item">
+                            <i class=""></i> View Performance
+                        </a>
+                        <a href={%  url 'coachupdateperformance' %} class="dropdown-item">
+                            <i class=""></i> Update Performance
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-user-times"></i> Logout
+                    </a>
+                </li>
+            </ul>
+
+
+        </div>
+    </div>
+</nav>
+<br>
+<section >
+     <div class="row"">
+        &nbsp
+  &nbsp
+        <div class="w3-card-4" style="width: 68%;">
+          <div class="card text-center bg-primary text-white mb-3"  style="width:100%;">
+            <div class="col-md-13" >
+                <h1>
+                    <i class="fa fa-tachometer-alt"></i> Match Results</h1>
+            </div>  
+          </div>
+
+         <table class="table table-striped">
+          <thead class="thead-dark">
+          <tr>
+            <th> Sport Name</th>
+            <th> Team1</th>
+            <th> Team2</th>
+            <th> Date and time</th>
+            <th> Venue</th>
+            <th>Result</th>
+          </tr>
+         </thead>
+         </table>
+
+         <div style="overflow: auto; height: 580px;" >
+                
+            <table class="table table-striped">
+              <tbody >
+                {% for item in schedules %}
+                <tr >
+                  <td></td>
+                  <td>{{ item.sport.sport_name }}</td>
+                  <td>{{ item.opponent_1 }}</td>
+                  <td>{{ item.opponent_2 }}</td>
+                  <td>{{item.datetime}}</td>  
+                  <td>{{item.venue}}</td>
+                  <td>{{item.result}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+              
+            </table>
+            </div>
+
+         </div>
+      &nbsp  
+            <div class="w3-card-4" style="width: 30%;">
+          <div class="card text-center bg-primary text-white mb-3"  >
+            <div class="col-md-13">
+                <h1>
+                    <i class="fas fa-cog"></i> Announcements</h1>
+            </div>
+          </div>
+            <table class="table table-striped">
+              <thead class="thead-dark">
+                <tr>
+                  <th>Sender</th>
+                  <th>Announcement</th>
+                  <th>Sent time</th>
+                  <th></th>
+                </tr>
+              </thead>
+            </table>
+            <div style="overflow: auto; height: 580px;" >
+                
+            <table class="table table-striped">
+              <tbody >
+                {% for item in announcements %}
+                <tr >
+                  <td>{{ item.sender }}</td>
+                  <td>{{ item.message }}</td>
+                  <td>{{ item.datetime }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+              
+            </table>
+
+            </div>
+
+        </div>
+  </section>
+  <section >
+    
+      <div class="row" >
+        <div class="w3-card-4" style="width:69%;background: #e4e4e4" >
+          <div class="card text-center bg-primary text-white mb-3" ">
+            <div class="col-md-13" >
+                <h1>
+                    <i class="fa fa-tachometer-alt"></i>Add Results</h1>
+            </div>  
+      </div>
+     
+           <div style="overflow: auto; height: 470px;"  >
+                
+            <div >
+          <br>
+          <center>
+           <form action="{% url 'coachaddmatchresults' %}" method="post" >
+        {%csrf_token %}
+        <p><label style="width: 15%;" for="sportname">Sport</label><input type="text" name="sportname" placeholder="Sport Name" style="width: 30%;" required></p>
+        <p><label style="width: 15%;" for="result">Result</label><input type="text" placeholder="Result" name="result" style="width: 30%;" required></p>
+		<p><label style="width: 15%;" for="venue">Venue</label><input type="text" name="venue" placeholder="venue" style="width: 30%;" required></p>
+
+        <button class="button" type="submit" value="submit"> Add</button>
+        </form>
+        </center>
+             
+            </div>
+
+            </div>
+      
+        </div>
+        &nbsp  
+        <div class="w3-card-4" style="width: 30%;background: #e4e4e4  " >
+          
+           <div class="card text-center bg-primary text-white mb-3"  >
+            <div class="col-md-13">
+                <h1>
+                    <i class="fas fa-cog"> Send Announcements</i>
+                </h1>
+            </div>
+           </div>
+           <form action="{% url 'coachschedules' %}" method="post" >
+        {%csrf_token %}
+
+        <center><label for="message">Enter Announcement</label><br><textarea required name="message" placeholder="Enter Text Here" style="width: 80%"></textarea></center>
+         <center><button class="button" type="submit" value="submit"> Send</button></center>
+          
+        </form>
+        </div>
+  </section>
+
+<!-- FOOTER -->
+<footer id="main-footer" class="bg-dark text-white mt-5 p-5">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p class="lead text-center">
+                    Copyright &copy;
+                    <span id="year"></span>
+                    ProjectB14
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+
+<script>
+    // Get the current year for the copyright
+    $('#year').text(new Date().getFullYear());
+
+    CKEDITOR.replace('editor1');
+</script>
+</body>
+
+</html>
