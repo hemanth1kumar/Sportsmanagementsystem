@@ -82,28 +82,28 @@ $(function(){
                 </li>
                 
                <li class="nav-item px-2">
-                    <a href={%  url 'coachschedules' %} class="nav-link">schedules</a>
+                    <a href={%  url 'coachschedules' %} class="nav-link">Schedules</a>
                 </li>
                 
                 <li class="nav-item px-2">
-                    <a href={%  url 'coachcomplaints' %} class="nav-link active">complaints</a>
+                    <a href={%  url 'coachcomplaints' %} class="nav-link ">Complaints</a>
                   </li>
                   <li class="nav-item px-2">
                     <a href={%  url 'coachmatchresults' %} class="nav-link">Match Results</a>
                   </li>
                 <li class="nav-item px-2">
-                    <a href={%  url 'coachsettings' %} class="nav-link">settings</a>
+                    <a href={%  url 'coachsettings' %} class="nav-link active">Settings</a>
                 </li>
                 </ul>
 
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown mr-3">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                        <i class=""></i> Player performance
+                        <i class=""></i> Player Performance
                     </a>
                     <div class="dropdown-menu">
                         <a href={%  url 'coachperformance' %} class="dropdown-item">
-                            <i class=""></i> View performance
+                            <i class=""></i> View Performance
                         </a>
                         <a href={%  url 'coachupdateperformance' %} class="dropdown-item">
                             <i class=""></i> Update Performance
@@ -111,7 +111,7 @@ $(function(){
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{% url 'signout' %}" class="nav-link">
                         <i class="fas fa-user-times"></i> Logout
                     </a>
                 </li>
@@ -202,35 +202,39 @@ input { width: 70%; }
             </center>
 
         <div>
-                <div style="float: left;">
+               <!-- <div style="float: left;">
                 <img src="61789.jpg" class="image" style="float: left;">
                 
                 <br><br><br><br><br>
-                <span style="float: left;"> Change prof-pic <br><input type="file" id='profile_image' placeholder="change Image">
+                <span style="float: left;"> Change Pro-pic <br><input type="file" id='profile_image' placeholder="change Image">
                 </span>
-                </div>
+                </div>-->
 
         <center>
-                <p><label style="width:10%">Name:<span runat="server" ID="required" style="color:Red;" visible="false;" > *</span></label>
-                <input type="text" required style="width: 30%;"></p>
+            <form action="{% url 'coachupdatesettings' %}" method="post" >
+                {%csrf_token %}
+                <p><label style="width:10%">Name<span runat="server" ID="required" style="color:Red;"  visible="false;" > *</span></label>
+                <input type="text" placeholder="Name" name='name' required style="width: 30%;" value={{coachdetails.coach_name}}></p>
           
           
-                <p><label style="width:10%">Email:<span runat="server" ID="required" style="color:Red;" visible="false"> *</span> </label>
-                <input type="text" required style="width: 30%;"></p>
+                <p><label style="width:10%">Moble No:<span runat="server" ID="required" style="color:Red;" visible="false"> *</span> </label>
+                <input type="text" placeholder="contact info" name="contact" required value={{coachdetails.contact}} style="width: 30%;"></p>
           
-                <p><label style="width:10%">Contact:<span runat="server" ID="required" style="color:Red;" visible="false"> *</span></label>
-                <input type="text" required style="width: 30%;"></p>
+                <p><label style="width:11%">expirience years<span runat="server" ID="required" style="color:Red;" visible="false"> *</span></label>
+                <input type="text" name="experience" placeholder="enter year count in digit ex.4" value={{coachdetails.experience}} required style="width: 30%;"></p>
            
            
            
-                <p><label style="width:10%"> Password:<span runat="server" ID="required" style="color:Red;" visible="false"> *</span></label>
-                <input type="text" required style="width: 30%;"></p>
+                <p><label style="width:10%">New Password<span runat="server" ID="required" style="color:Red;" visible="false"> *</span></label>
+                <input type="text" placeholder="Password" name="password1" style="width: 30%;"></p>
                 
 
-                <p><label style="width:10%">Retype:<span runat="server" ID="required" style="color:Red;" visible="false"> *</span></label></p>
-                <input type="text" required style="width: 30%;"></p>
+                <p><label style="width:10%">Retype New Password<span runat="server" ID="required" style="color:Red;" visible="false"> *</span></label></p>
+                <input type="text" placeholder="Password" name="password2" style="width: 30%;"></p>
+                <p><span runat="server" ID="required" style="color:Red;" visible="false">{{message}}</span></p>
                 &nbsp
-                <center><button class="button" type="submit" value="submit"> submit</button></center>
+                <center><button class="button" type="submit" value="submit"> Submit</button></center>
+                </form>
            </center>
         
         </div>
@@ -245,13 +249,13 @@ input { width: 70%; }
           <div class="card text-center bg-primary text-white mb-3"  >
             <div class="col-md-13">
                 <h1>
-                    <i class="fas fa-cog"></i> announcements</h1>
+                    <i class="fas fa-cog"></i> Announcements</h1>
             </div>
           </div>
             <table class="table table-striped">
               <thead class="thead-dark">
                 <tr>
-                  <th>sender</th>
+                  <th>Sender</th>
                   <th>Announcement</th>
                   <th>Sent time</th>
                 </tr>
@@ -280,16 +284,16 @@ input { width: 70%; }
            <div class="card text-center bg-primary text-white mb-3"  >
             <div class="col-md-13">
                 <h1>
-                    <i class="fas fa-cog"> Send announcements</i>
+                    <i class="fas fa-cog"> Send Announcements</i>
                 </h1>
             </div>
            </div>
                 <form action="{% url 'coachsettings' %}" method="post" >
-              
+              {%csrf_token %}
 
-        <center>enter announcement:
-        <textarea required name="message" style="width: 80%"></textarea></center>
-         <center><button class="button" type="submit" value="submit"> send</button></center>
+        <center>Enter Announcement:
+        <textarea required name="message" placeholder="Enter Text Here" style="width: 80%"></textarea></center>
+         <center><button class="button" type="submit" value="submit"> Send</button></center>
         </form>
         </div>
 

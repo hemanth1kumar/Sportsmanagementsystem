@@ -139,28 +139,28 @@
                 </li>
                 
                <li class="nav-item px-2">
-                    <a href={%  url 'coachschedules' %} class="nav-link">schedules</a>
+                    <a href={%  url 'coachschedules' %} class="nav-link">Schedules</a>
                 </li>
                 
                 <li class="nav-item px-2">
-                    <a href={%  url 'coachcomplaints' %} class="nav-link">complaints</a>
+                    <a href={%  url 'coachcomplaints' %} class="nav-link">Complaints</a>
                   </li>
                   <li class="nav-item px-2">
                     <a href={%  url 'coachmatchresults' %} class="nav-link">Match Results</a>
                   </li>
                 <li class="nav-item px-2">
-                    <a href={%  url 'coachsettings' %} class="nav-link">settings</a>
+                    <a href={%  url 'coachsettings' %} class="nav-link">Settings</a>
                 </li>
                 </ul>
 
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown mr-3">
                     <a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown">
-                        <i class=""></i> Player performance
+                        <i class=""></i> Player Performance
                     </a>
                     <div class="dropdown-menu">
                         <a href={%  url 'coachperformance' %} class="dropdown-item">
-                            <i class=""></i> View performance
+                            <i class=""></i> View Performance
                         </a>
                         <a href={%  url 'coachupdateperformance' %} class="dropdown-item">
                             <i class=""></i> Update Performance
@@ -168,7 +168,7 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{% url 'signout' %}" class="nav-link">
                         <i class="fas fa-user-times"></i> Logout
                     </a>
                 </li>
@@ -209,38 +209,32 @@ window.onclick = function(event) {
           <div class="card text-center bg-primary text-white mb-3" ">
             <div class="col-md-13" >
                 <h1>
-                    <i class="fa fa-tachometer-alt"></i>Player performances</h1>
+                    <i class="fa fa-tachometer-alt"></i>Player Performance</h1>
             </div>  
           </div>
-          <div>
-        <!--  <div>
-          <div class="dropdown">
-                  <button onclick="myFunction()" class="dropbtn">Filter</button>
-                   <div id="myDropdown" class="dropdown-content">
-                     <a href="#home">By date</a>
-                     <a href="#about">By sportname</a>
-                   </div>
-              </div>
-              <button class="button" type="submit" value="submit"> send</button>
-          </div>--> 
-
-          </div>
-
-          <table class="table table-striped">
+          <form action="{% url 'coachviewperformance' %}" method="post" >
+        {%csrf_token %}
+                   <p><label style="width: 15%;">Filter:</label><select for="sportname" name="sportname" style="width: 30%">
+                    {% for item in sports %}
+                    <option >{{item.sport_name}}</option>
+                    {% endfor %}
+                    
+        </select></p><button class="button" type="submit" value="submit">SHOW RESULTS</button>
+      </form>
+             <div style="overflow: auto; height: 600px;" >
+            <table class="table table-striped">
               <thead class="thead-dark">
                 <tr>
-                  <th>Rank</th>
+                  <th>Sport</th>
                   <th>Name</th>
                   <th>Role</th>
-                  <th>Performance</th>
+                  <th>Performance ratings</th>
                 </tr>
               </thead>
-            </table> <br>
-            <table class="table table-striped">
               <tbody >
                 {% for item in performances %}
                 <tr >
-                  <td>{{ item.role }}</td>
+                  <td>{{ item.sport.sport_name }}</td>
                   <td>{{ item.student.last_name }}</td>
                   <td>{{ item.role }}</td>
                   <td>{{ item.performance_score }}</td>
@@ -249,7 +243,7 @@ window.onclick = function(event) {
               </tbody>
               
             </table>
-
+            </div>
           
        </div>
       &nbsp 
@@ -258,13 +252,13 @@ window.onclick = function(event) {
           <div class="card text-center bg-primary text-white mb-3"  >
             <div class="col-md-13">
                 <h1>
-                    <i class="fas fa-cog"></i> announcements</h1>
+                    <i class="fas fa-cog"></i> Announcements</h1>
             </div>
           </div>
             <table class="table table-striped">
               <thead class="thead-dark">
                 <tr>
-                  <th>sender</th>
+                  <th>Sender</th>
                   <th>Announcement</th>
                   <th>Sent time</th>
                   <th></th>
@@ -293,15 +287,15 @@ window.onclick = function(event) {
            <div class="card text-center bg-primary mb-3"   >
             <div class="col-md-13">
                 <h1>
-                    <i class="fas fa-cog"> Send announcements</i>
+                    <i class="fas fa-cog"> Send Announcements</i>
                 </h1>
             </div>
            </div>
                 <form action="{% url 'coachperformance' %}" method="post" >
         {%csrf_token %}
 
-        <p><label for="message">enter announcement:</label><br><textarea required name="message" style="width: 80%"></textarea></p>
-         <button class="button" type="submit" value="submit"> send</button>
+        <p><label for="message">Enter Announcement:</label><br><textarea required name="message" placeholder="Enter Text Here" style="width: 80%"></textarea></p>
+         <button class="button" type="submit" value="submit"> Send</button>
           
         </form>
               </div>

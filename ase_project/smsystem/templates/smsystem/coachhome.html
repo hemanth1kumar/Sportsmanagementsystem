@@ -137,28 +137,28 @@
                 </li>
                 
                <li class="nav-item px-2">
-                    <a href={%  url 'coachschedules' %} class="nav-link ">schedules</a>
+                    <a href={%  url 'coachschedules' %} class="nav-link ">Schedules</a>
                 </li>
                 
                 <li class="nav-item px-2">
-                    <a href={%  url 'coachcomplaints' %} class="nav-link">complaints</a>
+                    <a href={%  url 'coachcomplaints' %} class="nav-link">Complaints</a>
                   </li>
                   <li class="nav-item px-2">
                     <a href={%  url 'coachmatchresults' %} class="nav-link">Match Results</a>
                   </li>
                 <li class="nav-item px-2">
-                    <a href={%  url 'coachsettings' %} class="nav-link">settings</a>
+                    <a href={%  url 'coachsettings' %} class="nav-link">Settings</a>
                 </li>
                 </ul>
 
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown mr-3">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                        <i class=""></i> Player performance
+                        <i class=""></i> Player Performance
                     </a>
                     <div class="dropdown-menu">
                         <a href={%  url 'coachperformance' %} class="dropdown-item">
-                            <i class=""></i> View performance
+                            <i class=""></i> View Performance
                         </a>
                         <a href={%  url 'coachupdateperformance' %} class="dropdown-item">
                             <i class=""></i> Update Performance
@@ -166,7 +166,7 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{% url 'signout' %}" class="nav-link">
                         <i class="fas fa-user-times"></i> Logout
                     </a>
                 </li>
@@ -219,24 +219,25 @@ window.onclick = function(event) {
     <img src="https://cdn.britannica.com/47/190947-131-FCF3F960.jpg" alt="unable" style="width:20%; height:15%;float: left; ">
     </div>       
     </div>
-      <div class="w3-card-4" style="background-color: #e4e4e4;font-variant-position: sub;">
+      <div class="w3-card-4" style="font-variant-position: sub;">
         <center><br><br><h1><i class=""></i>Match Results</h1></center>
          <table class="table table-striped">
-          <thead class="thead-dark">
+          
+         </table>
+
+         <div style="overflow: auto; height:400px;" >
+                
+            <table class="table table-striped">
+              <thead class="thead-dark">
           <tr>
             <th> Sport Name</th>
             <th> Team1</th>
             <th> Team2</th>
             <th> Date</th>
             <th> Venue</th>
-            <th>result</th>
+            <th>Result</th>
           </tr>
          </thead>
-         </table>
-
-         <div style="overflow: auto; height:100px;" >
-                
-            <table class="table table-striped">
               <tbody >
                 {% for item in schedules %}
                 <tr >
@@ -262,14 +263,14 @@ window.onclick = function(event) {
           <div class="card text-center bg-primary text-white mb-3"  >
             <div class="col-md-13">
                 <h1>
-                    <i class="fas fa-cog"></i> announcements</h1>
+                    <i class="fas fa-cog"></i> Announcements</h1>
             </div>
           </div>
           <div class="w3-card-4">
           <table class="table table-striped">
               <thead class="thead-dark">
                 <tr>
-                  <th>sender</th>
+                  <th>Sender</th>
                   <th>Announcement</th>
                   <th>Sent time</th>
                   <th></th>
@@ -298,14 +299,14 @@ window.onclick = function(event) {
            <div class="card text-center bg-primary text-white mb-3"  >
             <div class="col-md-13">
                 <h1>
-                    <i class="fas fa-cog"> Send announcements</i>
+                    <i class="fas fa-cog"> Send Announcements</i>
                 </h1>
             </div>
            </div>
            <form action="{% url 'coachhome' %}" method="post" >
         {%csrf_token %}
-        <p><label for="message">enter announcement:</label><br><textarea required name="message" style="width: 80%"></textarea></p>
-         <button class="button" type="submit" value="submit"> send</button>
+        <p><label for="message">Enter Announcement:</label><br><textarea required name="message" placeholder="Enter Text Here" style="width: 80%"></textarea></p>
+         <button class="button" type="submit" value="submit"> Send</button>
           
         </form>
          </center>
