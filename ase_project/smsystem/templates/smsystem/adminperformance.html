@@ -143,11 +143,11 @@
                     <a href={%  url 'admincoaches' %} class="nav-link ">Coaches</a>
                 </li>
                 <li class="nav-item px-2">
-                    <a href={%  url 'adminperformance' %} class="nav-link active">performances</a>
+                    <a href={%  url 'adminperformance' %} class="nav-link active">Performances</a>
                 </li>
                 <li class="nav-item px-2">
                    <a href={%  url 'adminschedules' %} class="nav-link ">
-                        schedules
+                        Schedules
                     </a>
                 </li>
                 <li class="nav-item px-2">
@@ -161,19 +161,15 @@
                         <i class="fas fa-user">Admin</i>
                     </a>
                     <div class="dropdown-menu">
-                        <a href={%  url 'adminsettings' %} class="dropdown-item">
-                            <i class="fas fa-cog"> Settings</i>
+                        <a href="{% url 'signout' %}" class="dropdown-item">
+                            <i class="fas fa-user-times"> Logout</i>
                         </a>
                     </div>
                 </li>
                 
             
 
-                <li class="nav-item px-2">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-user-times"> </i>Logout
-                    </a>
-                </li>
+                
               </ul>
         </div>
     </div>
@@ -209,34 +205,28 @@ window.onclick = function(event) {
           <div class="card text-center bg-primary text-white mb-3" ">
             <div class="col-md-13" >
                 <h1>
-                    <i class="fa fa-tachometer-alt"></i>Player performances</h1>
+                    <i class="fa fa-tachometer-alt"></i>Player Performances</h1>
             </div>  
           </div>
-          <div>
-        <!--  <div>
-          <div class="dropdown">
-                  <button onclick="myFunction()" class="dropbtn">Filter</button>
-                   <div id="myDropdown" class="dropdown-content">
-                     <a href="#home">By date</a>
-                     <a href="#about">By sportname</a>
-                   </div>
-              </div>
-              <button class="button" type="submit" value="submit"> send</button>
-          </div>--> 
-
-          </div>
-
-          <table class="table table-striped">
+          <form action="{% url 'adminviewperformance' %}" method="post" >
+        {%csrf_token %}
+                   <p><label style="width: 15%;">Filter:</label><select for="sportname" name="sportname" style="width: 30%">
+                    {% for item in sports %}
+                    <option >{{item.sport_name}}</option>
+                    {% endfor %}
+                    
+        </select></p><button class="button" type="submit" value="submit">SHOW RESULTS</button>
+      </form>
+            <div style="overflow: auto; height: 600px;" >
+            <table class="table table-striped">
               <thead class="thead-dark">
                 <tr>
-                  <th>game</th>
+                  <th>Game</th>
                   <th>Name</th>
                   <th>Role</th>
-                  <th>Performance</th>
+                  <th>Performance ratings</th>
                 </tr>
               </thead>
-            </table> <br>
-            <table class="table table-striped">
               <tbody >
                 {% for item in performances %}
                 <tr >
@@ -249,7 +239,7 @@ window.onclick = function(event) {
               </tbody>
               
             </table>
-
+          </div>
           
        </div>
       &nbsp 
@@ -258,22 +248,20 @@ window.onclick = function(event) {
           <div class="card text-center bg-primary text-white mb-3"  >
             <div class="col-md-13">
                 <h1>
-                    <i class="fas fa-cog"></i> announcements</h1>
+                    <i class="fas fa-cog"></i> Announcements</h1>
             </div>
           </div>
+            <div style="overflow: auto; height: 600px;" >
+                
             <table class="table table-striped">
               <thead class="thead-dark">
                 <tr>
-                  <th>sender</th>
+                  <th>Sender</th>
                   <th>Announcement</th>
                   <th>Sent time</th>
                   <th></th>
                 </tr>
               </thead>
-            </table>
-            <div style="overflow: auto; height: 600px;" >
-                
-            <table class="table table-striped">
               <tbody >
                 {% for item in announcements %}
                 <tr >
@@ -293,15 +281,15 @@ window.onclick = function(event) {
            <div class="card text-center bg-primary mb-3"   >
             <div class="col-md-13">
                 <h1>
-                    <i class="fas fa-cog"> Send announcements</i>
+                    <i class="fas fa-cog"> Send Announcements</i>
                 </h1>
             </div>
            </div>
                 <form action="{% url 'adminperformance' %}" method="post" >
         {%csrf_token %}
 
-        <p><label for="message">enter announcement:</label><br><textarea required name="message" style="width: 80%"></textarea></p>
-         <button class="button" type="submit" value="submit"> send</button>
+        <p><label for="message">Enter Announcement:</label><br><textarea required name="message" placeholder="Enter Text Here" style="width: 80%"></textarea></p>
+         <button class="button" type="submit" value="submit"> Send</button>
           
         </form>
               </div>

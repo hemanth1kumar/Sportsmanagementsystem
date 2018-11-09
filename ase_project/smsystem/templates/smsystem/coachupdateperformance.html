@@ -140,7 +140,7 @@
                 </li>
                 
                <li class="nav-item px-2">
-                    <a href={%  url 'coachschedules' %} class="nav-link">sSchedules</a>
+                    <a href={%  url 'coachschedules' %} class="nav-link">Schedules</a>
                 </li>
                 
                 <li class="nav-item px-2">
@@ -224,10 +224,15 @@ window.onclick = function(event) {
             <center>
            <form action="{% url 'coachaddperformance' %}" method="post" >
         {%csrf_token %}
-        <p><label style="width: 15%;" for="studentid">student id</label><input type="text" placeholder="Student Id" name="S20160020127" style="width: 30%;" required></p>
-        <p><label style="width: 15%;" for="sportname">Sport</label><input type="text"  placeholder="Sport Name" name="sportname"style="width: 30%;" required></p>
+        <p><label style="width: 15%;" for="studentid">student id</label><input type="text" placeholder="Student Id" name="studentid" style="width: 30%;" required></p>
+        <p><label style="width: 15%;">Sport Name:</label><select for="sportname" name="sportname" style="width: 30%">
+                    {% for item in sports %}
+                    <option >{{item.sport_name}}</option>
+                    {% endfor %}
+                    
+        </select></p>
         <p><label style="width: 15%;" for="role">Role</label><input type="text" name="role" placeholder="Role" style="width: 30%;" required></p>
-        <p><label style="width: 15%;" for="performance">Performance</label><input type="text" placeholder="Performance" name="performance" style="width: 30%;" required></p>
+        <p><label style="width: 15%;" for="performance">Performance ratings</label><input type="text" placeholder="Performance" name="performance" style="width: 30%;" required></p>
         
 
         <button class="button" type="submit" value="submit">Add Performance</button>
@@ -256,7 +261,7 @@ window.onclick = function(event) {
                 </tr>
               </thead>
             </table> <br>
-            <div style="overflow: auto; height: 600px;" >
+            <div style="overflow: auto; height: 330px;" >
                 
             <table class="table table-striped">
               <tbody >

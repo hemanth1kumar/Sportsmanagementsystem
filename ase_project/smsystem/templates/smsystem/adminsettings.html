@@ -86,11 +86,11 @@ $(function(){
                     <a href={%  url 'admincoaches' %} class="nav-link">Coaches</a>
                 </li>
                 <li class="nav-item px-2">
-                    <a href={%  url 'adminperformance' %} class="nav-link">performances</a>
+                    <a href={%  url 'adminperformance' %} class="nav-link">Performances</a>
                 </li>
                 <li class="nav-item px-2">
                    <a href={%  url 'adminschedules' %} class="nav-link ">
-                        schedules
+                        Schedules
                     </a>
                 </li>
                 <li class="nav-item px-2">
@@ -104,16 +104,12 @@ $(function(){
                         <i class="fas fa-user" >Admin</i>
                     </a>
                     <div class="dropdown-menu">
-                        <a href={%  url 'adminsettings' %} class="dropdown-item">
-                            <i class="fas fa-cog"> Settings</i>
+                        <a href="{% url 'signout' %}" class="dropdown-item">
+                            <i class="fas fa-user-times"> Logout</i>
                         </a>
                     </div>
                 </li>
-                <li class="nav-item px-2">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-user-times"> </i>Logout
-                    </a>
-                </li>
+                
               </ul>
         </div>
     </div>
@@ -202,31 +198,31 @@ input { width: 70%; }
                 <img src="61789.jpg" class="image" style="float: left;">
                 
                 <br><br><br><br><br>
-                <span style="float: left;"> Change prof-pic <br><input type="file" id='profile_image' placeholder="change Image">
+                <span style="float: left;"> Change Pro-pic <br><input type="file" id='profile_image' placeholder="change Image">
                 </span>
                 </div>
 
         <center>
-                <p><label style="width:10%">Name:<span runat="server" ID="required" style="color:Red;" visible="false;" > *</span></label>
-                <input type="text" required style="width: 30%;"></p>
+                <p><label style="width:10%">Name<span runat="server" ID="required" style="color:Red;" visible="false;" > *</span></label>
+                <input type="text" placeholder="User Name" required style="width: 30%;"></p>
           
           
-                <p><label style="width:10%">Email:<span runat="server" ID="required" style="color:Red;" visible="false"> *</span> </label>
-                <input type="text" required style="width: 30%;"></p>
+                <p><label style="width:10%">Email<span runat="server" ID="required" style="color:Red;" visible="false"> *</span> </label>
+                <input type="text" placeholder="Email adress" required style="width: 30%;"></p>
           
-                <p><label style="width:10%">Contact:<span runat="server" ID="required" style="color:Red;" visible="false"> *</span></label>
-                <input type="text" required style="width: 30%;"></p>
+                <p><label style="width:10%">Contact<span runat="server" ID="required" style="color:Red;" visible="false"> *</span></label>
+                <input type="text" placeholder="Contact" required style="width: 30%;"></p>
            
            
            
-                <p><label style="width:10%"> Password:<span runat="server" ID="required" style="color:Red;" visible="false"> *</span></label>
-                <input type="text" required style="width: 30%;"></p>
+                <p><label style="width:10%"> Password<span runat="server" ID="required" style="color:Red;" visible="false"> *</span></label>
+                <input type="text" placeholder="Password" required style="width: 30%;"></p>
                 
 
-                <p><label style="width:10%">Retype:<span runat="server" ID="required" style="color:Red;" visible="false"> *</span></label></p>
-                <input type="text" required style="width: 30%;"></p>
+                <p><label style="width:10%">Retype<span runat="server" ID="required" style="color:Red;" visible="false"> *</span></label></p>
+                <input type="text" placeholder="Password" required style="width: 30%;"></p>
                 &nbsp
-                <center><button class="button" type="submit" value="submit"> submit</button></center>
+                <center><button class="button" type="submit" value="submit"> Submit</button></center>
            </center>
         
         </div>
@@ -241,13 +237,13 @@ input { width: 70%; }
           <div class="card text-center bg-primary text-white mb-3"  >
             <div class="col-md-13">
                 <h1>
-                    <i class="fas fa-cog"></i> announcements</h1>
+                    <i class="fas fa-cog"></i> Announcements</h1>
             </div>
           </div>
             <table class="table table-striped">
               <thead class="thead-dark">
                 <tr>
-                  <th>sender</th>
+                  <th>Sender</th>
                   <th>Announcement</th>
                   <th>Sent time</th>
                   <th></th>
@@ -277,16 +273,16 @@ input { width: 70%; }
            <div class="card text-center bg-primary text-white mb-3"  >
             <div class="col-md-13">
                 <h1>
-                    <i class="fas fa-cog"> Send announcements</i>
+                    <i class="fas fa-cog"> Send Announcements</i>
                 </h1>
             </div>
            </div>
                 <form action="{% url 'adminsettings' %}" method="post" >
                {%csrf_token %}
 
-        <center>ENTER ANNOUNCEMENT
-        <textarea required name="message" style="width: 80%"></textarea></center>
-         <center><button class="button" type="submit" value="submit"> send</button></center>
+        <center>Enter Announcement
+        <textarea required name="message" placeholder="Enter Text Here" style="width: 80%"></textarea></center>
+         <center><button class="button" type="submit" value="submit"> Send</button></center>
         </form>
         </div>
 

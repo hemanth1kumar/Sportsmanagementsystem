@@ -160,6 +160,7 @@ fieldset {
             <table class="table table-striped">
               <thead class="thead-dark">
           <tr>
+            <th>Match id</th>
             <th> Sport Name</th>
             <th> Team1</th>
             <th> Team2</th>
@@ -170,6 +171,7 @@ fieldset {
               <tbody >
                 {% for item in schedules %}
                 <tr >
+                  <td>{{ item.schedule_id }}</td>
                   <td>{{ item.sport.sport_name }}</td>
                   <td>{{ item.opponent_1 }}</td>
                   <td>{{ item.opponent_2 }}</td>
@@ -247,7 +249,7 @@ fieldset {
         <p><label style="width: 15%;" for="opponent_1">Team1</label><input type="text" name="opponent_1"style="width: 30%;" placeholder="Team name" required></p>
         <p><label style="width: 15%;" for="opponent_2">Team2</label><input type="text" name="opponent_2" style="width: 30%;" placeholder="Team name" required></p>
         <p><label style="width: 15%;" for="datetime">Date</label><input type="datetime-local"  name="datetime" value="YYYY-MM-DD HH:MM" style="width: 30%;" required></p>
-		<p><label style="width: 15%;" for="venue">Venue</label><input type="text" name="venue name" placeholder="Venue" style="width: 30%;" required></p>
+		<p><label style="width: 15%;" for="venue">Venue</label><input type="text" name="venue" placeholder="Venue" style="width: 30%;" required></p>
 
         <button class="button" type="submit" value="submit"> Add Schedule</button>
         </form>

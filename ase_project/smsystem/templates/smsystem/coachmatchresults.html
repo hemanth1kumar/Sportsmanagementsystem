@@ -161,6 +161,7 @@ fieldset {
             <table class="table table-striped">
               <thead class="thead-dark">
           <tr>
+            <th>Match id</th>
             <th> Sport Name</th>
             <th> Team1</th>
             <th> Team2</th>
@@ -172,6 +173,7 @@ fieldset {
               <tbody >
                 {% for item in schedules %}
                 <tr >
+                  <td>{{ item.schedule_id}}</td>
                   <td>{{ item.sport.sport_name }}</td>
                   <td>{{ item.opponent_1 }}</td>
                   <td>{{ item.opponent_2 }}</td>
@@ -247,9 +249,9 @@ fieldset {
                     {% endfor %}
                     
         </select></p>
+        <p><label style="width: 15%;" for="match">match id</label><input type="text" name="matchid" placeholder="matchid" style="width: 30%;" required></p>
         <p><label style="width: 15%;" for="result">Result</label><input type="text" placeholder="Result" name="result" style="width: 30%;" required></p>
-    <p><label style="width: 15%;" for="venue">team1</label><input type="text" name="team1" placeholder="team1" style="width: 30%;" required></p>
-    <p><label style="width: 15%;" for="venue">team2</label><input type="text" name="team2" placeholder="team2" style="width: 30%;" required></p>
+    
     
 
         <button class="button" type="submit" value="submit"> Add</button>

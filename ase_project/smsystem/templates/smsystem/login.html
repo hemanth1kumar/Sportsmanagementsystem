@@ -47,15 +47,27 @@
             </div>  
           </div>
           <div class="login-page">
-  <div class="form">
+            <div class="form">
+              <h1>Student Login</h1>
+    
+      
+      <a href="http://10.0.80.133.3000/login/5bdb1ca2203ce300150cb531">login</a>
+      
+    
+  </div>
+          
+  <div class="form" >
+    <h1>Admin & Coach Login</h1>
     <form class="login-form" action="{% url 'login' %}" method="POST" >
       {%csrf_token %}
       <input type="text" placeholder="username" name="username" />
       <input type="password" placeholder="password" name="password" />
       <button>login</button>
-      <p class="message">Not registered? <a href="#">Create an account</a></p>
+      
     </form>
   </div>
+  
+
 </div>
        
 
@@ -67,13 +79,13 @@
           <div class="card text-center bg-primary text-white mb-3"  >
             <div class="col-md-13">
                 <h1>
-                    <i class="fas fa-cog"></i> announcements</h1>
+                    <i class="fas fa-cog"></i> Announcements</h1>
             </div>
           </div>
             <table class="table table-striped">
               <thead class="thead-dark">
                 <tr>
-                  <th>sender</th>
+                  <th>Sender</th>
                   <th>Announcement</th>
                   <th>Sent time</th>
                   <th></th>

@@ -105,11 +105,11 @@
                     <a href={%  url 'admincoaches' %} class="nav-link ">Coaches</a>
                 </li>
                 <li class="nav-item px-2">
-                    <a href={%  url 'adminperformance' %} class="nav-link">performances</a>
+                    <a href={%  url 'adminperformance' %} class="nav-link">Performances</a>
                 </li>
                 <li class="nav-item px-2">
                    <a href={%  url 'adminschedules' %} class="nav-link ">
-                        schedules
+                        Schedules
                     </a>
                 </li>
                 <li class="nav-item px-2">
@@ -123,15 +123,10 @@
                         <i class="fas fa-user">Admin</i>
                     </a>
                     <div class="dropdown-menu">
-                        <a href={%  url 'adminsettings' %} class="dropdown-item">
-                            <i class="fas fa-cog"> Settings</i>
+                        <a href="{% url 'signout' %}" class="dropdown-item">
+                            <i class="fas fa-user-times"> Logout</i>
                         </a>
                     </div>
-                </li>
-                <li class="nav-item px-2">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-user-times"> </i>Logout
-                    </a>
                 </li>
               </ul>
         </div>
@@ -157,11 +152,10 @@
           </script>
           <div class="w3-card-4" style="width: 80%;height: 30%; background: white">
             <table style="width:70%""><tr>
-            <td> <label style="width: 100%;">GAMENAME:</label></td><td>{{item.sport_name}}</td>
-            <td> <label style="width: 100%;">TYPE:</label></td><td>{{item.category}}</td></tr>
-           <tr><td> <label style="width: 100%;">kITS</label></td><td>{{item.equipment}}</td>
-            <td><label style="width: 100%;">NUMBER OF PLAYERS</label></td><td>{{item.no_of_players}}</td></tr>
-            <tr><td><label style="width: 100%;">NUMBER OF COACHES</label></td><td>{{item.no_of_coaches}}</td></tr>
+            <td> <label style="width: 100%;">Gamename:</label></td><td>{{item.sport_name}}</td>
+            <td> <label style="width: 100%;">Type:</label></td><td>{{item.category}}</td></tr>
+           <tr><td> <label style="width: 100%;">Kits</label></td><td>{{item.equipment}}</td>
+            <!--<td><label style="width: 100%;">Number Of Players</label></td><td>{{item.no_of_players}}</td>--><td><label style="width: 100%;">Number Of Coaches</label></td><td>{{item.no_of_coaches}}</td></tr>
             <tr><td>
             </table>
 
@@ -183,7 +177,7 @@
           <div class="card text-center bg-primary text-white mb-3"  >
             <div class="col-md-13">
                 <h1>
-                    <i class="fas fa-cog"></i> announcements</h1>
+                    <i class="fas fa-cog"></i> Announcements</h1>
             </div>
           </div>
           <table class="table table-striped">
@@ -229,10 +223,14 @@
       <center>
           <form action="{% url 'adminaddgames' %}" method="post" >
         {%csrf_token %}
-        <p><label for="sport_name" style="width: 15%;">gamename:</label><input type="text" name="sport_name"></p>
-        <p><label for="equipment" style="width: 15%;">EQUIPMENT:</label><input type="text" name="equipment"></p>
-        <p><label for="category" style="width: 15%;">CATEGORY:</label><input type="text" name="category"></p>
-         <button class="button" type="submit" value="submit"> ADD Games</button>
+        <p><label for="sport_name" style="width: 15%;">Game:</label><input type="text" name="sport_name" placeholder="Game Name"></p>
+        <p><label for="equipment" style="width: 15%;">Equipment:</label><input type="text" name="equipment" placeholder="Equipment"></p>
+        <p><label style="width: 15%;">Category:</label><select for="category" name="category" style="width: 19%">
+                    <option >outdoor</option>
+                    <option>indoor</option>
+                    
+        </select></p>
+         <button class="button" type="submit" value="submit">Add Games</button>
         </form>
         </center>
      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -250,14 +248,14 @@
            <div class="card text-center bg-primary text-white mb-3"  >
             <div class="col-md-13">
                 <h1>
-                    <i class="fas fa-cog"> Send announcements</i>
+                    <i class="fas fa-cog"> Send Announcements</i>
                 </h1>
             </div>
            </div>
                 <form action="{% url 'admingames' %}" method="post" >
         {%csrf_token %}
 
-        <center><p><label for="message">enter announcement:</label><br><textarea required name="message" style="width: 80%"></textarea></p></center>
+        <center><p><label for="message">Enter Announcement:</label><br><textarea required name="message" placeholder="Enter Text Here" style="width: 80%"></textarea></p></center>
          <center><button class="button" type="submit" value="submit"> send</button></center>
           
         </form>
