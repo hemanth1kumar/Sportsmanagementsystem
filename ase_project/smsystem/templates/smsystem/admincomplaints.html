@@ -145,11 +145,11 @@
                     <a href={%  url 'admincoaches' %} class="nav-link">Coaches</a>
                 </li>
                 <li class="nav-item px-2">
-                    <a href={%  url 'adminperformance' %} class="nav-link">performances</a>
+                    <a href={%  url 'adminperformance' %} class="nav-link">Performances</a>
                 </li>
                 <li class="nav-item px-2">
                    <a href={%  url 'adminschedules' %} class="nav-link ">
-                        schedules
+                        Schedules
                     </a>
                 </li>
                 <li class="nav-item px-2">
@@ -163,103 +163,71 @@
                         <i class="fas fa-user">Admin</i>
                     </a>
                     <div class="dropdown-menu">
-                        <a href={%  url 'adminsettings' %} class="dropdown-item">
-                            <i class="fas fa-cog"> Settings</i>
+                        <a href="{% url 'signout' %}" class="dropdown-item">
+                            <i class="fas fa-user-times"> Logout</i>
                         </a>
                     </div>
                 </li>
-                <li class="nav-item px-2">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-user-times"> </i>Logout
-                    </a>
-                </li>
+                
               </ul>
         </div>
     </div>
 </nav>
 <br>
-<script>
-/* When the user clicks on the button, 
-toggle between hiding and showing the dropdown content */
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
 
-// Close the dropdown if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>
 
 <section >
     
       <div class="row" >
-        <div class="w3-card-4" style="width:65%;height:1000px;" >
+        <div class="w3-card-4" style="width:65%;height:900px;" >
           <div class="card text-center bg-primary text-white mb-3" ">
             <div class="col-md-13" >
                 <h1>
-                    <i class="fa fa-tachometer-alt"></i>complaints</h1>
+                    <i class="fa fa-tachometer-alt"></i>Complaints</h1>
             </div>  
           </div>
-
-          <table class="table table-striped">
+          <div style="overflow: auto; height: 580px;" >
+            <table class="table table-striped">
               <thead class="thead-dark">
                 <tr>
-                  <th>checkbox</th>
-                  <th>complaints</th>
-                  <th>sent time</th>
-                  <th>status</th>
+                  <th>Complaints</th>
+                  <th>Sent time</th>
+                  <th>Sender</th>
                 </tr>
               </thead>
-            </table> <br>
-            <table class="table table-striped">
               <tbody >
                 {% for item in complaints %}
                 <tr >
-                  <td><form><input type="checkbox"></form></td>
                   <td>{{ item.about}}</td>
                   <td>{{ item.datetime }}</td>
-                  <td>{{ item.status }}</td>
+                  <td>{{ item.student.first_name }}{{ item.student.middle_name }}{{ item.student.last_name }}</td>
                 </tr>
                 {% endfor %}
               </tbody>
               
             </table>
-
+          </div>
           
        </div>
       &nbsp 
-      <div> 
+      <div style="width: 30%"> 
           <div class="w3-card-4" style="width: 100%  " >
           <div class="card text-center bg-primary text-white mb-3"  >
             <div class="col-md-13">
                 <h1>
-                    <i class="fas fa-cog"></i> announcements</h1>
+                    <i class="fas fa-cog"></i> Announcements</h1>
             </div>
           </div>
+            <div style="overflow: auto; height: 580px;" >
+                
             <table class="table table-striped">
               <thead class="thead-dark">
                 <tr>
-                  <th>sender</th>
+                  <th>Sender</th>
                   <th>Announcement</th>
                   <th>Sent time</th>
-                  <th></th>
                 </tr>
               </thead>
-            </table>
-            <div style="overflow: auto; height: 600px;" >
-                
-            <table class="table table-striped">
               <tbody >
                 {% for item in announcements %}
                 <tr >
@@ -284,8 +252,8 @@ window.onclick = function(event) {
                 <form action="{% url 'adminschedules' %}" method="post" >
         {%csrf_token %}
 
-        <p><label for="message">enter announcement:</label><br><textarea required name="message" style="width: 80%"></textarea></p>
-         <button class="button" type="submit" value="submit"> send</button>
+        <p><label for="message">Enter announcement:</label><br><textarea required name="message" style="width: 80%" placeholder="Enter text here"></textarea></p>
+         <button class="button" type="submit" value="submit"> Send</button>
           
         </form>
               </div>

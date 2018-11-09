@@ -235,7 +235,7 @@ window.onclick = function(event) {
                 {% for item in performances %}
                 <tr >
                   <td>{{ item.sport.sport_name }}</td>
-                  <td>{{ item.student.last_name }}</td>
+                  <td>{{item.student.first_name}} {{ item.student.middle_name }}  {{item.student.last_name}}</td>
                   <td>{{ item.role }}</td>
                   <td>{{ item.performance_score }}</td>
                 </tr>

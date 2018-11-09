@@ -108,18 +108,9 @@
                     </a>
                 </li>
 
-                  <li class="nav-item dropdown mr-3">
-                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                        <i class="fas fa-user">Admin</i>
-                    </a>
-                    <div class="dropdown-menu">
-                        <a href={%  url 'adminsettings' %} class="dropdown-item">
-                            <i class="fas fa-cog"> Settings</i>
-                        </a>
-                    </div>
-                </li>
+                  
                 <li class="nav-item px-2">
-                    <a href="#" class="nav-link">
+                    <a href="{% url 'signout' %}" class="nav-link">
                         <i class="fas fa-user-times"> </i>Logout
                     </a>
                 </li>
@@ -140,7 +131,7 @@
           </div>
 
           <center>
-           <div style="overflow: auto; height: 500px;" >
+           <div style="overflow: auto; height: 600px;" >
           {% for item in coaches %}
           <div class="w3-card-4" style="width: 80%;height: 30%; background: #e4e4e4">
             <table style="width:60%"">
@@ -166,7 +157,7 @@
           <div class="card text-center bg-primary text-white mb-3"  >
             <div class="col-md-13">
                 <h1>
-                    <i class="fas fa-cog"></i> announcements</h1>
+                    <i class="fas fa-cog"></i> Announcements</h1>
             </div>
           </div>
             <table class="table table-striped">
@@ -179,7 +170,7 @@
                 </tr>
               </thead>
             </table>
-            <div style="overflow: auto; height: 500px;" >
+            <div style="overflow: auto; height: 600px;" >
                 
             <table class="table table-striped">
               <tbody >
@@ -217,11 +208,16 @@
         <center>
           <form action="{% url 'adminaddcoaches' %}" method="post" >
         {%csrf_token %}
-        <p><label for="name" style="width: 15%;">COACH NAME:</label><input type="text" required name="name"></p>
-        <p><label for="experience" style="width: 15%;">EXPERIENCE:</label><input type="text" required name="experience"></p>
-        <p><label for="sport" style="width: 15%;">SPORT:</label><input type="text" required name="sport" ></p>
-        <p><label for="type" style="width: 15%;">TYPE:</label><input type="text" required name="type"></p>
-        <p><label for="contact" style="width: 15%;">CONTACT:</label><input type="text" required name="contact" ></p>
+        <p><label for="name" style="width: 15%;">COACH NAME:</label><input type="text" required name="name" placeholder="Coach name"></p>
+        <p><label for="experience" style="width: 15%;">EXPERIENCE:</label><input type="text" required name="experience" placeholder="Enter experience"></p>
+        <p><label style="width: 15%;">Sport Name:</label><select for="sport" name="sport" style="width: 20%">
+                    {% for item in sports %}
+                    <option >{{item.sport_name}}</option>
+                    {% endfor %}
+                    
+        </select></p>
+        <p><label for="type" style="width: 15%;">TYPE:</label><input type="text" required name="type" placeholder="Type of sport"></p>
+        <p><label for="contact" style="width: 15%;">CONTACT:</label><input type="text" required name="contact" placeholder="Contact " ></p>
          <button class="button" type="submit" value="submit"> ADD COACH</button>
         </form>
         </center>
@@ -246,7 +242,7 @@
            </div>
            <form action="{% url 'admincoaches' %}" method="post" >
         {%csrf_token %}
-        <p><label for="message">enter announcement:</label><br><textarea required name="message" style="width: 80%"></textarea></p>
+        <p><label for="message">enter announcement:</label><br><textarea required name="message" style="width: 80%" placeholder="Enter text here"></textarea></p>
          <button class="button" type="submit" value="submit"> send</button>
           
         </form>
@@ -269,16 +265,6 @@
     </div>
 </footer>
 
-
-
-
-<script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
 
 <script>
     // Get the current year for the copyright

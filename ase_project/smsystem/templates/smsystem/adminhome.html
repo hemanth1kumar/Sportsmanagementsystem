@@ -141,11 +141,11 @@
                     <a href={%  url 'admincoaches' %} class="nav-link">Coaches</a>
                 </li>
                 <li class="nav-item px-2">
-                    <a href={%  url 'adminperformance' %} class="nav-link">performances</a>
+                    <a href={%  url 'adminperformance' %} class="nav-link">Performances</a>
                 </li>
                 <li class="nav-item px-2">
                    <a href={%  url 'adminschedules' %} class="nav-link ">
-                        schedules
+                        Schedules
                     </a>
                 </li>
                 <li class="nav-item px-2">
@@ -159,16 +159,12 @@
                         <i class="fas fa-user">Admin</i>
                     </a>
                     <div class="dropdown-menu">
-                        <a href={%  url 'adminsettings' %} class="dropdown-item">
-                            <i class="fas fa-cog"> Settings</i>
+                        <a href="{% url 'signout' %}" class="dropdown-item">
+                            <i class="fas fa-user-times"> Logout</i>
                         </a>
                     </div>
                 </li>
-                <li class="nav-item px-2">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-user-times"> </i>Logout
-                    </a>
-                </li>
+                
               </ul>
         </div>
     </div>
@@ -200,7 +196,7 @@ window.onclick = function(event) {
 <section >
     
       <div class="row" >
-        <div class="w3-card-4" style="width:69%;height:810px" >
+        <div class="w3-card-4" style="width:69%;height:800px" >
           <div class="card text-center bg-primary text-white mb-3" ">
             <div class="col-md-13" >
                 <h1>
@@ -209,17 +205,21 @@ window.onclick = function(event) {
           </div>
       
   <br>
-  <div class="w3-card-4">
+  <div >
 
-    <div class="col-md-13" >
+    
       <div>
     <img src="https://cdn.britannica.com/47/190947-131-FCF3F960.jpg" alt="unable" style="width:20%; height:15%;float: left; ">
     </div>       
     </div>
       <div class="w3-card-4" style="font-variant-position: sub;">
         <center><br><br><h1><i class="fa fa-tachometer-alt"></i>View Schedules</h1></center>
-         <table class="table table-striped">
-          <thead class="thead-dark">
+        
+
+         <div style="overflow: auto; height:600px;" >
+                
+            <table class="table table-striped">
+              <thead class="thead-dark">
           <tr>
             <th> Sport Name</th>
             <th> Team1</th>
@@ -228,11 +228,6 @@ window.onclick = function(event) {
             <th> Venue</th>
           </tr>
          </thead>
-         </table>
-
-         <div style="overflow: auto; height:400px;" >
-                
-            <table class="table table-striped">
               <tbody >
                 {% for item in schedules %}
                 <tr >
@@ -247,7 +242,7 @@ window.onclick = function(event) {
               
             </table>
             </div>
-          </div>
+         
 
   </div>
 
@@ -257,14 +252,14 @@ window.onclick = function(event) {
           <div class="card text-center bg-primary text-white mb-3"  >
             <div class="col-md-13">
                 <h1>
-                    <i class="fas fa-cog"></i> announcements</h1>
+                    <i class="fas fa-cog"></i> Announcements</h1>
             </div>
           </div>
           <div class="w3-card-4">
           <table class="table table-striped">
               <thead class="thead-dark">
                 <tr>
-                  <th>sender</th>
+                  <th>Sender</th>
                   <th>Announcement</th>
                   <th>Sent time</th>
                   <th></th>
@@ -293,14 +288,14 @@ window.onclick = function(event) {
            <div class="card text-center bg-primary text-white mb-3"  >
             <div class="col-md-13">
                 <h1>
-                    <i class="fas fa-cog"> Send announcements</i>
+                    <i class="fas fa-cog"> Send Announcements</i>
                 </h1>
             </div>
            </div>
            <form action="{% url 'adminhome' %}" method="post" >
         {%csrf_token %}
-        <p><label for="message">enter announcement:</label><br><textarea required name="message" style="width: 80%"></textarea></p>
-         <button class="button" type="submit" value="submit"> send</button>
+        <p><label for="message">Enter Announcement:</label><br><textarea required name="message" placeholder="Enter Text Here" style="width: 80%"></textarea></p>
+         <button class="button" type="submit" value="submit"> Send</button>
           
         </form>
          </center>

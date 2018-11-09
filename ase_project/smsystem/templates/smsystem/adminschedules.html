@@ -107,11 +107,11 @@ fieldset {
                     <a href={%  url 'admincoaches' %} class="nav-link ">Coaches</a>
                 </li>
                 <li class="nav-item px-2">
-                    <a href={%  url 'adminperformance' %} class="nav-link">performances</a>
+                    <a href={%  url 'adminperformance' %} class="nav-link">Performances</a>
                 </li>
                 <li class="nav-item px-2">
                 	 <a href={%  url 'adminschedules' %} class="nav-link active">
-                        schedules
+                        Schedules
                     </a>
                 </li>
                 <li class="nav-item px-2">
@@ -125,16 +125,12 @@ fieldset {
                         <i class="fas fa-user">Admin</i>
                     </a>
                     <div class="dropdown-menu">
-                        <a href={%  url 'adminsettings' %} class="dropdown-item">
-                            <i class="fas fa-cog"> Settings</i>
+                        <a href="{% url 'signout' %}" class="dropdown-item">
+                            <i class="fas fa-user-times"> Logout</i>
                         </a>
                     </div>
                 </li>
-                <li class="nav-item px-2">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-user-times"> </i>Logout
-                    </a>
-                </li>
+                
               </ul>
         </div>
     </div>
@@ -152,8 +148,11 @@ fieldset {
             </div>  
           </div>
 
-         <table class="table table-striped">
-          <thead class="thead-dark">
+
+         <div style="overflow: auto; height: 580px;" >
+                
+            <table class="table table-striped">
+              <thead class="thead-dark">
           <tr>
             <th> Sport Name</th>
             <th> Team1</th>
@@ -162,15 +161,9 @@ fieldset {
             <th> Venue</th>
           </tr>
          </thead>
-         </table>
-
-         <div style="overflow: auto; height: 580px;" >
-                
-            <table class="table table-striped">
               <tbody >
                 {% for item in schedules %}
                 <tr >
-                  <td></td>
                   <td>{{ item.sport.sport_name }}</td>
                   <td>{{ item.opponent_1 }}</td>
                   <td>{{ item.opponent_2 }}</td>
@@ -189,13 +182,13 @@ fieldset {
           <div class="card text-center bg-primary text-white mb-3"  >
             <div class="col-md-13">
                 <h1>
-                    <i class="fas fa-cog"></i> announcements</h1>
+                    <i class="fas fa-cog"></i> Announcements</h1>
             </div>
           </div>
             <table class="table table-striped">
               <thead class="thead-dark">
                 <tr>
-                  <th>sender</th>
+                  <th>Sender</th>
                   <th>Announcement</th>
                   <th>Sent time</th>
                   <th></th>
@@ -228,7 +221,7 @@ fieldset {
           <div class="card text-center bg-primary text-white mb-3" ">
             <div class="col-md-13" >
                 <h1>
-                    <i class="fa fa-tachometer-alt"></i>make schedules</h1>
+                    <i class="fa fa-tachometer-alt"></i>Make Schedules</h1>
             </div>  
       </div>
      
@@ -239,13 +232,18 @@ fieldset {
           <center>
            <form action="{% url 'adminaddschedules' %}" method="post" >
         {%csrf_token %}
-        <p><label style="width: 15%;" for="sportname">sport name:</label><input type="text" name="sportname" style="width: 30%;" required></p>
-        <p><label style="width: 15%;" for="opponent_1">Team1:</label><input type="text" name="opponent_1"style="width: 30%;" required></p>
-        <p><label style="width: 15%;" for="opponent_2">Team2:</label><input type="text" name="opponent_2" style="width: 30%;" required></p>
-        <p><label style="width: 15%;" for="datetime">Date:</label><input type="datetime-local"  name="datetime" value="YYYY-MM-DD HH:MM" style="width: 30%;" required></p>
-		<p><label style="width: 15%;" for="venue">Venue:</label><input type="text" name="venue" style="width: 30%;" required></p>
+        <p><label style="width: 15%;">Sport Name:</label><select for="sportname" name="sportname" style="width: 30%">
+                    {% for item in sports %}
+                    <option >{{item.sport_name}}</option>
+                    {% endfor %}
+                    
+        </select></p>
+        <p><label style="width: 15%;" for="opponent_1">Team1</label><input type="text" name="opponent_1" placeholder="Team Name" style="width: 30%;" required></p>
+        <p><label style="width: 15%;" for="opponent_2">Team2</label><input type="text" name="opponent_2" placeholder="Team Name" style="width: 30%;" required></p>
+        <p><label style="width: 15%;" for="datetime">Date</label><input type="datetime-local"  name="datetime" placeholder="Date" value="YYYY-MM-DD HH:MM" style="width: 30%;" required></p>
+		<p><label style="width: 15%;" for="venue">Venue</label><input type="text" name="venue" placeholder="Venue" style="width: 30%;" required></p>
 
-        <button class="button" type="submit" value="submit"> ADD SCHEDULE</button>
+        <button class="button" type="submit" value="submit"> Add Schedule</button>
         </form>
         </center>
              
@@ -260,15 +258,15 @@ fieldset {
            <div class="card text-center bg-primary text-white mb-3"  >
             <div class="col-md-13">
                 <h1>
-                    <i class="fas fa-cog"> Send announcements</i>
+                    <i class="fas fa-cog"> Send Announcements</i>
                 </h1>
             </div>
            </div>
            <form action="{% url 'adminschedules' %}" method="post" >
         {%csrf_token %}
 
-        <center><label for="message">ENTER ANNOUNCEMENT</label><br><textarea required name="message" style="width: 80%"></textarea></center>
-         <center><button class="button" type="submit" value="submit"> send</button></center>
+        <center><label for="message">Enter Announcement</label><br><textarea required name="message" placeholder="Enter Text Here" style="width: 80%"></textarea></center>
+         <center><button class="button" type="submit" value="submit"> Send</button></center>
           
         </form>
         </div>

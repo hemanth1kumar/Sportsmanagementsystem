@@ -228,7 +228,7 @@ window.onclick = function(event) {
                 <tr >
                   <td>{{ item.about }}</td>
                   <td>{{ item.datetime }}</td>
-                  <td>{{ item.student.middle_name }}</td>
+                  <td>{{ item.student.first_name }}{{ item.student.middle_name }}{{ item.student.last_name }}</td>
                 </tr>
                 {% endfor %}
               </tbody>

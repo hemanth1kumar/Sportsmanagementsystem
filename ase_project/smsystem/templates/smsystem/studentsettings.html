@@ -73,18 +73,30 @@ $(function(){
     position: absolute;
     left: 300px;
 }
-
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+}
 </style>
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-0">
     <div class="container">
-        <a href={%  url 'studenthome' %} class="navbar-brand"> <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/49/IIIT_Sri_City_Logo.png/220px-IIIT_Sri_City_Logo.png" style="width: 50px; height: 50px; margin-right: 8px;"> SPORTS MANAGEMENT SYSTEM</a>
+        <a href={%  url 'studentdashboard' %} class="navbar-brand"> <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/49/IIIT_Sri_City_Logo.png/220px-IIIT_Sri_City_Logo.png" style="width: 50px; height: 50px; margin-right: 8px;"> SPORTS MANAGEMENT SYSTEM</a>
         <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav">
                 <li class="nav-item px-2">
-                    <a href={%  url 'studenthome' %} class="nav-link">Dashboard</a>
+                    <a href={%  url 'studentdashboard' %} class="nav-link">Dashboard</a>
                 </li>
                 <li class="nav-item px-2">
                     <a href={%  url 'studentschedules' %} class="nav-link">Schedules</a>
@@ -101,7 +113,7 @@ $(function(){
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown mr-3">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                        <i class="fas fa-user"></i> Welcome Brad
+                        <i class="fas fa-user"></i> {{student.student_id}}
                     </a>
                     <div class="dropdown-menu">
                         <a href={%  url 'studentsettings' %} class="dropdown-item">
@@ -110,7 +122,7 @@ $(function(){
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{% url 'signout' %}" class="nav-link">
                         <i class="fas fa-user-times"></i> Logout
                     </a>
                 </li>
@@ -192,7 +204,7 @@ input { width: 70%; }
         <div class="w3-card-4" style="width: 68%;background: #e4e4e4">
           <div class="card text-center bg-primary mb-3"  style="width: 100%;">
             <div class="col-md-13" >
-                <h1 style="font-family: Lucida Console,Lucida Sans Typewriter,monaco,Bitstream Vera Sans Mono,monospace;">Settings</h1>
+                <h1>Settings</h1>
             </div>  
           
           </div>
@@ -200,66 +212,95 @@ input { width: 70%; }
             
             &nbsp
             <center><div class="card text-center bg-primary text-white mb-3" style="width: 20%;" >
-                <h3>Edit Details</h3> </div>
+                <h3>Your Details</h3> </div>
             </center>
 
              
-            <div>
+           <!-- <div>
                 <div style="float: left;">
                 <img src="61789.jpg" class="image" style="float: left;">
                 
                 <br><br><br><br><br>
-                <span style="float: left;"> Change prof-pic <br><input type="file" id='profile_image' placeholder="change Image"> </input>
+                <span style="float: left;"> Change Pro-pic <br><input type="file" id='profile_image' placeholder="change Image"> </input>
                 </span>
                 </div>
 
-            <div style="float: right;">
-          <br>
+            <div style="float: right;">-->
+              <center>
+          <form action="{% url 'studentsettings' %}" method="post">
+            {%csrf_token %}
           <fieldset>
-                <label>Name:<span runat="server" ID="required" style="color:Red;" visible="false"> *</span></label>
-                <input type="text" required>
+                <label>Name<span runat="server" ID="required" style="color:Red;" visible="false"> *</span></label>
+                {{student.first_name}} {{student.middle_name}} {{student.last_name}}
           </fieldset>
           <br>
           <fieldset>
-                <label>Email:<span runat="server" ID="required" style="color:Red;" visible="false"> *</span> </label>
-                <input type="text">
+                <label>Email<span runat="server" ID="required" style="color:Red;" visible="false"> *</span> </label>
+                {{student.email}}
           </fieldset>
-           <br>
-           <fieldset>
-                <label>Contact:<span runat="server" ID="required" style="color:Red;" visible="false"> *</span></label>
-                <input type="text">
-           </fieldset>
-           <br>
-           <fieldset>
-                <label> Password:<span runat="server" ID="required" style="color:Red;" visible="false"> *</span></label>
-                <input type="text">
-           </fieldset>
-           <br>
-          
-           <fieldset>
-                <label>Retype:<span runat="server" ID="required" style="color:Red;" visible="false"> *</span></label>
-                <input type="text">
-           </fieldset>
 
-             <center><button > Submit</button> </center>
-             <br>
-            </div>
-            </div>
-          
-         </div>
+           <br>
+           <fieldset>
+                <label>gender<span runat="server" ID="required" style="color:Red;" visible="false"> *</span> </label>
+                {{student.gender}}
+          </fieldset>
 
-            &nbsp  
+           <br>
+           <fieldset>
+                <label>Current year<span runat="server" ID="required" style="color:Red;" visible="false"> *</span> </label>
+                {{student.current_year}}
+          </fieldset>
+
+           <!--<fieldset>
+                <label>Available games<span runat="server" ID="required" style="color:Red;" visible="false"> *</span> </label>
+                {% for item in sports %}
+                    {{item.sport_name}},
+                {% endfor %}
+          </fieldset>
+          
+           <br>
+           <fieldset>
+                <label>Game1<span runat="server" ID="required" style="color:Red;" visible="false"> *</span> </label>
+                <input type="text" name="sport1" required style="width: 30%; value={{game1}} ">
+          </fieldset>
+          <br>
+          <fieldset>
+                <label>Game2 </label>
+                <input type="text" name="sport2" style="width: 30%;">
+          </fieldset>
+          <br>
+          <fieldset>
+                <label>Game3 </label>
+                <input type="text" name="sport3" style="width: 30%;">
+          </fieldset>
+          <br>
+          <fieldset>
+                <label>Game4 </label>
+                <input type="text" name="sport4" style="width: 30%;">
+          </fieldset>
+          <br>
+          
+           
+
+
+             <center><button class="button" > Submit</button> </center>-->
+            </form></center>
+            </div>
+            
+          
+            &nbsp
+            
             <div class="w3-card-4" style="width: 30%">
           <div class="card text-center bg-primary text-white mb-3"  >
             <div class="col-md-13">
                 <h1>
-                    <i class="fas fa-cog"></i> announcements</h1>
+                    <i class="fas fa-cog"></i> Announcements</h1>
             </div>
           </div>
             <table class="table table-striped">
               <thead class="thead-dark">
                 <tr>
-                  <th>sender</th>
+                  <th>Sender</th>
                   <th>Announcement</th>
                   <th>Sent time</th>
                   <th></th>

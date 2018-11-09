@@ -102,14 +102,14 @@ display: inline-block;
 </style>
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-0">
     <div class="container">
-        <a href={%  url 'studenthome' %} class="navbar-brand"> <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/49/IIIT_Sri_City_Logo.png/220px-IIIT_Sri_City_Logo.png" style="width: 50px; height: 50px; margin-right: 8px;"> SPORTS MANAGEMENT SYSTEM</a>
+        <a href={%  url 'studentdashboard' %} class="navbar-brand"> <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/49/IIIT_Sri_City_Logo.png/220px-IIIT_Sri_City_Logo.png" style="width: 50px; height: 50px; margin-right: 8px;"> SPORTS MANAGEMENT SYSTEM</a>
         <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav">
                 <li class="nav-item px-2">
-                    <a href={%  url 'studenthome' %} class="nav-link active">Dashboard</a>
+                    <a href={%  url 'studentdashboard' %} class="nav-link active">Dashboard</a>
                 </li>
                 <li class="nav-item px-2">
                     <a href={%  url 'studentschedules' %} class="nav-link">Schedules</a>
@@ -124,7 +124,7 @@ display: inline-block;
                     <a href={%  url 'studentsettings' %} class="nav-link">Settings</a>
                 </li>
                 <li class="nav-item">
-                    <a href="login.html" class="nav-link">
+                    <a href="{% url 'signout' %}" class="nav-link">
                         <i class="fas fa-user-times"></i> Logout
                     </a>
                 </li>
@@ -146,39 +146,38 @@ display: inline-block;
             </div>  
           </div>
          <center>
-          
-         <table class="table table-striped" style="width: 65%;float: left;">
+          <p>welcome {{student.first_name}} {{student.middle_name }}  {{  student.last_name}}</p>
+        
+          <div style="overflow: auto; height: 350px;float: left;width:60%" >
+                
+            <table class="table table-striped">
               <thead class="thead-dark">
                 <tr>
-                  <th>S.No</th>
-                  <th>Game</th>
+                  <th>Sport</th>
+                  <th>Date</th>
                   <th>Role</th>
-                  <th>Performance</th>
+                  <th>Performance ratings</th>
                 </tr>
               </thead>
-            </table>
-          <div style="overflow: auto; height: 350px;float: left;" >
-                
-            <table class="table table-striped" style="width: 100%;">
               <tbody >
-                {% for item in performance %}
+                {% for item in performances %}
                 <tr >
-                  <td>{{ item }}</td>
-                  <td>{{ item }}</td>
-                  <td>{{ item }}</td>
-                  <td>{{item}}</td>
+                  <td>{{ item.sport.sport_name }}</td>
+                  <td>{{item.datetime}}</td>
+                  <td>{{ item.role }}</td>
+                  <td>{{ item.performance_score }}</td>
                 </tr>
-
                 {% endfor %}
               </tbody>
+              
             </table>
              </div>
             </center>
              <ul class="ch-grid">
           <li>
-            <div class="ch-item ch-img-1">
+            <div class="ch-item ch-img-1" >
               <div class="ch-info">
-                <h3>Overall Performance Score :30</h3>
+                <h3>Overall Performance Score :{{totalscore}}</h3>
                 <p>good work
                 Improve further</p>
               </div>
@@ -194,13 +193,13 @@ display: inline-block;
           <div class="card text-center bg-primary text-white mb-3"  >
             <div class="col-md-13">
                 <h1>
-                    <i class="fas fa-cog"></i> announcements</h1>
+                    <i class="fas fa-cog"></i> Announcements</h1>
             </div>
           </div>
             <table class="table table-striped">
               <thead class="thead-dark">
                 <tr>
-                  <th>sender</th>
+                  <th>Sender</th>
                   <th>Announcement</th>
                   <th>Sent time</th>
                   <th></th>
