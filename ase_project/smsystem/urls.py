@@ -1,9 +1,12 @@
 from django.conf.urls import url,include
+from django.urls import path,re_path
 from . import views
 urlpatterns = [
     url(r'^$',views.signin,name="login"),
     url(r'^$',views.signout,name="signout"),
-    url(r'^studenthome/$',views.studenthome,name="studenthome"),
+    
+    url(r'^studenthome/(?P<token_id>[\w\.-]+)/',views.studenthome,name="studenthome"),
+    url(r'^studentdashboard/$',views.studentdashboard,name="studentdashboard"),
     url(r'^studentcomplaints/$',views.studentcomplaints,name="studentcomplaints"),
     url(r'^studentmatchresults/$',views.studentmatchresults,name="studentmatchresults"),
     url(r'^studentschedules/$',views.studentschedules,name="studentschedules"),
@@ -18,7 +21,6 @@ urlpatterns = [
     url(r'^adminaddschedules/$',views.adminaddschedules,name="adminaddschedules"),
     url(r'^admingames/$',views.admingames,name="admingames"),
     url(r'^adminaddgames/$',views.adminaddgames,name="adminaddgames"),
-    url(r'^adminsettings/$',views.adminsettings,name="adminsettings"),
     url(r'^adminperformance/$',views.adminperformance,name="adminperformance"),
     url(r'^adminviewperformance/$',views.adminviewperformance,name="adminviewperformance"),
     url(r'^admincomplaints/$',views.admincomplaints,name="admincomplaints"),

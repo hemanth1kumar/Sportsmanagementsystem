@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import *	
+import requests,json
 import datetime
 from django.contrib.auth import authenticate,login,logout
 from django.views.decorators.csrf import csrf_exempt
@@ -10,6 +11,9 @@ from django.contrib.admin.views.decorators import staff_member_required
 
 # Create your views here.
 global_coachid=0
+global_studentid=None
+
+#login function
 def signin(request):
 	global global_coachid
 	if request.method == 'POST':
@@ -46,6 +50,9 @@ def signin(request):
 	announcements=Announcement.objects.all().order_by('-datetime')
 	context={'announcements':announcements}
 	return render(request,'smsystem/login.html',context)
+
+
+#signout function
 def signout(request):
 	global global_coachid
 	global_coachid=0
@@ -53,39 +60,147 @@ def signout(request):
 	context={'complaints':complaints,'announcements':announcements}
 	return render(request,'smsystem/login.html',context)
 
+
+
+#student details retrival function	
+def studenthome(request,token_id):
+	global global_studentid
+	payload={'token':token_id,'secret':"f007a8547bf8019ea1742912515767008a95520292ebabcf8e8804b116f7b9df34b69045f5503cfc9e8817c15342a53df7527bc50e951815c27007e6cafdb3d8"}
+	url="http://10.0.80.133.3000/oauth/getDetails"
+	response=requests.post(url,data=payload)
+	data=response.json()
+	print(data)
+	stu=Student.objects.all().filter(student_id=data['student'][0]['Student_ID'])
+	if len(stu)!=0:
+		global_studentid=data['student'][0]['Student_ID']
+		
+	else:
+		student_obj=Student()
+		student_obj.student_id=data['student'][0]['Student_ID']
+		global_studentid=data['student'][0]['Student_ID']
+		student_obj.first_name=data['student'][0]['Student_First_Name']
+		student_obj.last_name=data['student'][0]['Student_Last_name']
+		student_obj.middle_name=data['student'][0]['Student_Middle_Name']
+		student_obj.gender=data['student'][0]['Student_Gender']
+		student_obj.email=data['student'][0]['Student_Email']
+		student_obj.current_year=data['student'][0]['Student_Cur_YearofStudy']
+		student_obj.save()
+
+	return redirect('/studentdashboard/')
 	
-def studenthome(request):
-	complaints = Complaint.objects.all().order_by('-datetime')
+#student dashboard function
+def studentdashboard(request):
+	global global_studentid
+	student=Student.objects.filter(student_id=global_studentid)
+	performances=Performance.objects.filter(student=student[0])
+	totalscore=0
+	if len(performances)!=0:
+		for x in performances:
+			totalscore=totalscore+x.performance_score
+		totalscore=totalscore/len(performances)
+	else:
+		totalscore=1
 	announcements=Announcement.objects.all().order_by('-datetime')
-	context={'complaints':complaints,'announcements':announcements}
+	context={'announcements':announcements,'performances':performances,'student':student[0],'totalscore':totalscore}
 	return render(request,'smsystem/studenthome.html',context)
 
 
 
+
+#studentsettings function
 def studentsettings(request):
-	student=Student.objects.all()
+	global global_studentid
+	student=Student.objects.filter(student_id=global_studentid)
+	if request.method == 'POST':
+		sport1=request.POST['sport1']
+		sport2=request.POST['sport2']
+		sport3=request.POST['sport3']
+		sport4=request.POST['sport4']
+		if sport1!='':
+			player=Player()
+			sport_obj=Sport.objects.filter(sport_name=sport1)
+			player.student=student[0]
+			player.sport=sport_obj[0]
+			player.save()
+		if sport2!='':
+			player=Player()
+			sport_obj=Sport.objects.filter(sport_name=sport2)
+			player.student=student[0]
+			player.sport=sport_obj[0]
+			player.save()
+		if sport3!='':
+			player=Player()
+			sport_obj=Sport.objects.filter(sport_name=sport3)
+			player.student=student[0]
+			player.sport=sport_obj[0]
+			player.save()
+		if sport4!='':
+			player=Player()
+			sport_obj=Sport.objects.filter(sport_name=sport4)
+			player.student=student[0]
+			player.sport=sport_obj[0]
+			player.save()
+	game1=''
+	game2=''
+	game3=''
+	game4=''
+	player=Player.objects.filter(student=student[0])
+	if len(player)>=4:
+		game1=player[0].sport.sport_name
+		game2=player[1].sport.sport_name
+		game3=player[2].sport.sport_name
+		game4=player[3].sport.sport_name
+	elif len(player)>=3:
+		game1=player[0].sport.sport_name
+		game2=player[1].sport.sport_name
+		game3=player[2].sport.sport_name
+	elif len(player)>=2:
+		game1=player[0].sport.sport_name
+		game2=player[1].sport.sport_name
+		
+	elif len(player)>=1:
+		game1=player[0].sport.sport_name
+
+	print(game1,game2)
+	sports=Sport.objects.all()
+	student=Student.objects.filter(student_id=global_studentid)
 	announcements=Announcement.objects.all().order_by('-datetime')
-	context={'announcements':announcements}
+	context={'announcements':announcements,'student':student[0],'sports':sports,'game1':game1}
 	return render(request,'smsystem/studentsettings.html',context)
 
+
+#student sending complaints
 def studentcomplaints(request):
+	global global_studentid
 	if request.method == 'POST':
 		m_obj=Complaint()
+		student_obj=Student.objects.filter(student_id=global_studentid)
+		m_obj.student=student_obj[0]
 		m_obj.about=request.POST['about']
+		m_obj.created_by=student_obj[0].first_name
 		m_obj.save()
+	student=Student.objects.filter(student_id=global_studentid)
 	announcements=Announcement.objects.all().order_by('-datetime')
-	context={'announcements':announcements}
+	context={'announcements':announcements,'student':student[0]}
 	return render(request,'smsystem/studentcomplaints.html',context)
+
+
+#students matchresults viewing 
 def studentmatchresults(request):
+	global global_studentid
 	announcements=Announcement.objects.all().order_by('-datetime')
+	student=Student.objects.filter(student_id=global_studentid)
 	schedules=Schedule.objects.all().order_by('-datetime')
-	context={'announcements':announcements,'schedules':schedules}
+	context={'announcements':announcements,'schedules':schedules,'student':student[0]}
 	return render(request,'smsystem/studentmatchresults.html',context)
+
+#students schedules viewing
 def studentschedules(request):
+	global global_studentid
 	announcements=Announcement.objects.all().order_by('-datetime')
-	schedules=Schedule.objects.all().order_by('datetime')
+	student=Student.objects.filter(student_id=global_studentid)
 	schedules=Schedule.objects.all().order_by('-datetime')
-	context={'announcements':announcements,'schedules':schedules}
+	context={'announcements':announcements,'schedules':schedules,'student':student[0]}
 	return render(request,'smsystem/studentschedules.html',context)
 
 
@@ -118,6 +233,7 @@ def adminschedules(request):
 	context={'announcements':announcements,'schedules':schedules,'sports':sports}
 	return render(request,'smsystem/adminschedules.html',context)
 
+#admin addschedules
 def adminaddschedules(request):
 	if request.method == 'POST':
 		schedule_obj=Schedule()
@@ -135,7 +251,7 @@ def adminaddschedules(request):
 	context={'announcements':announcements,'schedules':schedules,'sports':sports}
 	return render(request,'smsystem/adminschedules.html',context)
 
-
+#admin add coaches function
 def adminaddcoaches(request):
 	sports = Sport.objects.all()
 	if request.method == 'POST':
@@ -157,6 +273,8 @@ def adminaddcoaches(request):
 	context={'announcements':announcements,'coaches':coaches}
 	return render(request,'smsystem/admincoaches.html',context)
 
+
+#admin view coaches function
 def admincoaches(request):
 	if request.method == 'POST':
 		m_obj=Announcement()
@@ -171,6 +289,7 @@ def admincoaches(request):
 	return render(request,'smsystem/admincoaches.html',context)
 
 
+#admin view coaches function
 def admingames(request):
 	if request.method == 'POST':
 		m_obj=Announcement()
@@ -184,6 +303,7 @@ def admingames(request):
 	context={'announcements':announcements,'sports':sports,'coaches':coaches}
 	return render(request,'smsystem/admingames.html',context)
 
+#admin add games function
 def adminaddgames(request):
 	if request.method == 'POST':
 		sport_obj=Sport()
@@ -196,6 +316,8 @@ def adminaddgames(request):
 	coaches=Coach.objects.all()
 	context={'announcements':announcements,'sports':sports,'coaches':coaches}
 	return render(request,'smsystem/admingames.html',context)
+
+#admin viewperforamnce function
 def adminperformance(request):
 	if request.method == 'POST':
 		m_obj=Announcement()
@@ -209,6 +331,7 @@ def adminperformance(request):
 	context={'announcements':announcements,'performances':performances,'sports':sports}
 	return render(request,'smsystem/adminperformance.html',context)
 
+#admin filtering the performances function
 def adminviewperformance(request):
 	if request.method == 'POST':
 		game=request.POST['sportname']
@@ -220,6 +343,7 @@ def adminviewperformance(request):
 	return render(request,'smsystem/adminperformance.html',context)
 
 
+#admin viewing complaints function
 def admincomplaints(request):
 	if request.method == 'POST':
 		m_obj=Announcement()
@@ -235,16 +359,6 @@ def admincomplaints(request):
 	context={'announcements':announcements,'complaints':complaints}
 	return render(request,'smsystem/admincomplaints.html',context)
 
-def adminsettings(request):
-	if request.method == 'POST':
-		m_obj=Announcement()
-		m_obj.sender='admin'
-		m_obj.message=request.POST['message']
-		m_obj.save()
-		print(m_obj.message)
-	announcements=Announcement.objects.all().order_by('-datetime')
-	context={'announcements':announcements}
-	return render(request,'smsystem/adminsettings.html',context)
 
 
 
@@ -256,7 +370,7 @@ def adminsettings(request):
 
 
 
-
+#coach howe function
 def coachhome(request):
 	global global_coachid
 	if request.method == 'POST':
@@ -266,11 +380,14 @@ def coachhome(request):
 		m_obj.message=request.POST['message']
 		m_obj.save()
 		print(m_obj.message)
+	coach=Coach.objects.filter(coach_id=global_coachid)
+	sport=Sport.objects.filter(sport_name=coach[0].sport.sport_name)
 	announcements=Announcement.objects.all().order_by('-datetime')
-	schedules=Schedule.objects.all().order_by('-datetime')
-	context={'announcements':announcements,'schedules':schedules}
+	schedules=Schedule.objects.all().filter(sport=sport[0])
+	context={'announcements':announcements,'schedules':schedules,'coach':coach[0]}
 	return render(request,'smsystem/coachhome.html',context)
 
+#coach make schedules function
 def coachschedules(request):
 	global global_coachid
 	if request.method == 'POST':
@@ -282,12 +399,14 @@ def coachschedules(request):
 		print(m_obj.message)
 	announcements=Announcement.objects.all().order_by('-datetime')
 	schedules=Schedule.objects.all().order_by('-datetime')
-	sports=Sport.objects.all()
+	coach=Coach.objects.filter(coach_id=global_coachid)
+	sports=Sport.objects.filter(sport_name=coach[0].sport.sport_name)
 	context={'announcements':announcements,'schedules':schedules,'sports':sports}
 	return render(request,'smsystem/coachschedules.html',context)
 
-
+#coach add schedules function
 def coachaddschedules(request):
+	global global_coachid
 	if request.method == 'POST':
 		schedule_obj=Schedule()
 		sport_name=request.POST['sportname']
@@ -300,10 +419,12 @@ def coachaddschedules(request):
 		schedule_obj.save()
 	announcements=Announcement.objects.all().order_by('-datetime')
 	schedules=Schedule.objects.all().order_by('-datetime')
-	sports=Sport.objects.all()
+	coach=Coach.objects.filter(coach_id=global_coachid)
+	sports=Sport.objects.filter(sport_name=coach[0].sport.sport_name)
 	context={'announcements':announcements,'schedules':schedules,'sports':sports}
 	return render(request,'smsystem/coachschedules.html',context)
 
+#coach complaints viewing function
 def coachcomplaints(request):
 	global global_coachid
 	if request.method == 'POST':
@@ -315,14 +436,10 @@ def coachcomplaints(request):
 		print(m_obj.message)
 	announcements=Announcement.objects.all().order_by('-datetime')
 	complaints=Complaint.objects.all().order_by('-datetime')
-	for x in complaints:
-		if(x.status!=1):
-			x.status='pending'
-		else:
-			x.status='completed '
 	context={'announcements':announcements,'complaints':complaints}
 	return render(request,'smsystem/coachcomplaints.html',context)
 
+#coach settings function
 def coachsettings(request):
 	global global_coachid
 	if request.method == 'POST':
@@ -336,7 +453,7 @@ def coachsettings(request):
 	announcements=Announcement.objects.all().order_by('-datetime')
 	context={'announcements':announcements,'coachdetails':coach[0]}
 	return render(request,'smsystem/coachsettings.html',context)
-
+#coach update setting function
 def coachupdatesettings(request):
 	global global_coachid
 	message='sucessfully updated'
@@ -349,14 +466,14 @@ def coachupdatesettings(request):
 				x.contact=request.POST['contact']
 				password1=request.POST['password1']
 				password2=request.POST['password2']
-				if password2!=None and password1!=None:
+				if (password2!='' and password1!='') or (password2=='' and password1!='') or (password2!='' and password1=='') :
 					if password1==password2:
 						x.coach_password=password1
 				
 					else:
 						message='passwords does not match'
 				else:
-					message='password does not match'
+					message='details has been updated'
 				x.save()
 
 	coach=Coach.objects.filter(coach_id=global_coachid)
@@ -364,6 +481,9 @@ def coachupdatesettings(request):
 	context={'announcements':announcements,'coachdetails':coach[0],'message':message}
 	return render(request,'smsystem/coachsettings.html',context)
 
+
+
+#coach match results viewing function
 def coachmatchresults(request):
 	global global_coachid
 	if request.method == 'POST':
@@ -375,28 +495,33 @@ def coachmatchresults(request):
 		print(m_obj.message)
 	announcements=Announcement.objects.all().order_by('-datetime')
 	schedules=Schedule.objects.all().order_by('-datetime')
-	sports=Sport.objects.all()
+	coach=Coach.objects.filter(coach_id=global_coachid)
+	sports=Sport.objects.filter(sport_name=coach[0].sport.sport_name)
 	context={'announcements':announcements,'schedules':schedules,'sports':sports}
 	return render(request,'smsystem/coachmatchresults.html',context)
 
+
+#coach adding match results functions
 def coachaddmatchresults(request):
+	global global_coachid
 	schedules=Schedule.objects.all().order_by('-datetime')
 	if request.method == 'POST':
 		result=request.POST['result']
-		team1=request.POST['team1']
-		team2=request.POST['team2']
+		matchid=request.POST['matchid']
 		sportname=request.POST['sportname']
 		for x in schedules:
 			print(x.datetime)
-			if(x.sport.sport_name==sportname and x.opponent_1==team1 and x.opponent_2==team2):
+			if(x.sport.sport_name==sportname and x.schedule_id==int(matchid)):
 				x.result=result
 				x.save()
 				
 	announcements=Announcement.objects.all().order_by('-datetime')
-	sports=Sport.objects.all()
+	coach=Coach.objects.filter(coach_id=global_coachid)
+	sports=Sport.objects.filter(sport_name=coach[0].sport.sport_name)
 	context={'announcements':announcements,'schedules':schedules,'sports':sports}
 	return render(request,'smsystem/coachmatchresults.html',context)	
 
+#coach performance viewing function
 def coachperformance(request):
 	global global_coachid
 	if request.method == 'POST':
@@ -408,20 +533,26 @@ def coachperformance(request):
 		print(m_obj.message)
 	sports=Sport.objects.all()
 	announcements=Announcement.objects.all().order_by('-datetime')
-	performances=Performance.objects.all()
+	coach=Coach.objects.filter(coach_id=global_coachid)
+	sports=Sport.objects.filter(sport_name=coach[0].sport.sport_name)
+	performances=Performance.objects.filter(sport=sports[0])
 	context={'announcements':announcements,'performances':performances,'sports':sports}
 	return render(request,'smsystem/coachperformance.html',context)
-
+#coach filering performace function
 def coachviewperformance(request):
+	global global_coachid
 	if request.method == 'POST':
 		game=request.POST['sportname']
 		sport=Sport.objects.filter(sport_name=game)
 		performances=Performance.objects.filter(sport=sport[0])
-	sports=Sport.objects.all()
+	
 	announcements=Announcement.objects.all().order_by('-datetime')
+	coach=Coach.objects.filter(coach_id=global_coachid)
+	sports=Sport.objects.filter(sport_name=coach[0].sport.sport_name)
 	context={'announcements':announcements,'performances':performances,'sports':sports}
 	return render(request,'smsystem/coachperformance.html',context)
 
+#coachupdate performance function
 def coachupdateperformance(request):
 	global global_coachid
 	if request.method == 'POST':
@@ -433,22 +564,32 @@ def coachupdateperformance(request):
 		print(m_obj.message)
 	announcements=Announcement.objects.all().order_by('-datetime')
 	performances=Performance.objects.all()
-	context={'announcements':announcements,'performances':performances}
+	coach=Coach.objects.filter(coach_id=global_coachid)
+	sports=Sport.objects.filter(sport_name=coach[0].sport.sport_name)
+	context={'announcements':announcements,'performances':performances,'sports':sports}
 	return render(request,'smsystem/coachupdateperformance.html',context)
 
+
+#coach addperformance
 def coachaddperformance(request):
+	global global_coachid
 	if request.method == 'POST':
 		p_obj=Performance()
 		s_id=request.POST['studentid']
 		sport_name=request.POST['sportname']
+		print(s_id)
 		student_obj=Student.objects.filter(student_id=s_id)
 		sport_obj=Sport.objects.filter(sport_name=sport_name)
 		p_obj.sport=sport_obj[0]
 		p_obj.student=student_obj[0]
 		p_obj.role=request.POST['role']
 		p_obj.performance_score=request.POST['performance']
+		coach_obj=Coach.objects.filter(coach_id=global_coachid)
+		p_obj.created_by=coach_obj[0].coach_name
 		p_obj.save()
 	announcements=Announcement.objects.all().order_by('-datetime')
 	performances=Performance.objects.all()
-	context={'announcements':announcements,'performances':performances}
+	coach=Coach.objects.filter(coach_id=global_coachid)
+	sports=Sport.objects.filter(sport_name=coach[0].sport.sport_name)
+	context={'announcements':announcements,'performances':performances,'sports':sports}
 	return render(request,'smsystem/coachupdateperformance.html',context)
