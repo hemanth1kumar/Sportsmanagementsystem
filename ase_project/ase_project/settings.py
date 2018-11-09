@@ -77,11 +77,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME':'smsystem',
-        'USER':'root',
-        'PASSWORD':'4236',
-        'HOST':'localhost',
-        'PORT':''
-	
+        'USER':'sms_user',
+        'PASSWORD':'smsystem',
+        'HOST':'52.66.82.245',
+        'PORT':'3306'
     }
 }
 
