@@ -163,8 +163,44 @@ display: inline-block;
           </div>
          <center>
           <p>welcome {{student.first_name}} {{student.middle_name }}  {{  student.last_name}}</p>
-        
-          <div style="overflow: auto; height: 350px;float: left;width:60%" >
+          
+
+          
+            </center>
+            <div style="overflow: auto; height: 350px;float: left;width:30%" >
+                
+            <table class="table table-striped">
+              <center><thead class="thead-dark">
+                <tr>
+                  <th>Your Sports</th>
+                </tr>
+              </thead></center>
+              <tbody >
+                {% for item in games %}
+                <tr >
+                  <td>{{ item.sport.sport_name }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+              
+            </table>
+             </div>
+             <ul class="ch-grid">
+          <li>
+            <div class="ch-item ch-img-1" >
+              <div class="ch-info">
+                <h3>Overall Performance Score :{{totalscore}}</h3>
+                <p>good work
+                Improve further</p>
+
+              </div>
+              
+            </div>
+            
+          </li>
+        </ul>
+          <script src="jQuery.ui.datepicker.js"></script>
+        <div style="overflow: auto; height: 350px;float: left;width:100%" >
                 
             <table class="table table-striped">
               <thead class="thead-dark">
@@ -188,20 +224,6 @@ display: inline-block;
               
             </table>
              </div>
-            </center>
-             <ul class="ch-grid">
-          <li>
-            <div class="ch-item ch-img-1" >
-              <div class="ch-info">
-                <h3>Overall Performance Score :{{totalscore}}</h3>
-                <p>good work
-                Improve further</p>
-              </div>
-            </div>
-          </li>
-        </ul>
-          <script src="jQuery.ui.datepicker.js"></script>
-        
 
          </div>
          &nbsp  
