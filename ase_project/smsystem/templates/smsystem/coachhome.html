@@ -17,6 +17,12 @@
 
     <title>B14rontend</title>
 
+<script>
+window.location.hash="no-back-button";
+window.location.hash="Again-No-back-button";//again because google chrome don't insert first hash into history
+window.onhashchange=function(){window.location.hash="no-back-button";}
+</script>
+
     <script type="text/javascript">
   function addRow() {
     var table=document.getElementById('MyTable');
@@ -124,44 +130,47 @@
 
 </style>
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-0">
-    <div class="container">
-        <a href={%  url 'coachhome' %} class="navbar-brand"> <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/49/IIIT_Sri_City_Logo.png/220px-IIIT_Sri_City_Logo.png" style="width: 50px; height: 50px; margin-right: 8px;"> SPORTS MANAGEMENT SYSTEM</a>
-        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
+    <div>
+        <a href="/coachhome/{{coach.coach_id}}" class="navbar-brand"> <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/49/IIIT_Sri_City_Logo.png/220px-IIIT_Sri_City_Logo.png" style="width: 100px; height: 100px; margin-right: 8px;"> SPORTS MANAGEMENT SYSTEM</a>
+        </div>
+        <div class="container">
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav">
                 <li class="nav-item px-2">
-                    <a href={%  url 'coachhome' %} class="nav-link active">Dashboard</a>
+                    <a href="/coachhome/{{coach.coach_id}}"  class="nav-link active">Dashboard</a>
                 </li>
                 
                <li class="nav-item px-2">
-                    <a href={%  url 'coachschedules' %} class="nav-link ">Schedules</a>
+                    <a href="/coachschedules/{{coach.coach_id}}" class="nav-link ">Schedules</a>
                 </li>
                 
                 <li class="nav-item px-2">
-                    <a href={%  url 'coachcomplaints' %} class="nav-link">Complaints</a>
+                    <a href="/coachcomplaints/{{coach.coach_id}}" class="nav-link">Complaints</a>
                   </li>
                   <li class="nav-item px-2">
-                    <a href={%  url 'coachmatchresults' %} class="nav-link">Match Results</a>
+                    <a href="/coachmatchresults/{{coach.coach_id}}" class="nav-link">Match Results</a>
                   </li>
-                <li class="nav-item px-2">
-                    <a href={%  url 'coachsettings' %} class="nav-link">Settings</a>
-                </li>
-                </ul>
 
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item dropdown mr-3">
+                  <li class="nav-item dropdown mr-3">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                         <i class=""></i> Player Performance
                     </a>
                     <div class="dropdown-menu">
-                        <a href={%  url 'coachperformance' %} class="dropdown-item">
+                        <a href="/coachperformance/{{coach.coach_id}}" class="dropdown-item">
                             <i class=""></i> View Performance
                         </a>
-                        <a href={%  url 'coachupdateperformance' %} class="dropdown-item">
+                        <a href="/coachupdateperformance/{{coach.coach_id}}" class="dropdown-item">
                             <i class=""></i> Update Performance
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown mr-3">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                        <i class="fas fa-user"></i>{{coach.coach_name}}
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="/coachsettings/{{coach.coach_id}}" class="dropdown-item">
+                            <i class="fas fa-cog"></i> Settings
                         </a>
                     </div>
                 </li>
@@ -170,9 +179,8 @@
                         <i class="fas fa-user-times"></i> Logout
                     </a>
                 </li>
-            </ul>
-
-
+                </ul>
+          </div>
         </div>
     </div>
 </nav>
@@ -304,7 +312,7 @@ window.onclick = function(event) {
                 </h1>
             </div>
            </div>
-           <form action="{% url 'coachhome' %}" method="post" >
+           <form action="/coachhome/{{coach.coach_id}}/" method="post" >
         {%csrf_token %}
         <p><label for="message">Enter Announcement:</label><br><textarea required name="message" placeholder="Enter Text Here" style="width: 80%"></textarea></p>
          <button class="button" type="submit" value="submit"> Send</button>

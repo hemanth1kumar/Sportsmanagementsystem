@@ -34,6 +34,15 @@
 	}
 </script>
 
+
+<script>
+window.location.hash="no-back-button";
+window.location.hash="Again-No-back-button";//again because google chrome don't insert first hash into history
+window.onhashchange=function(){window.location.hash="no-back-button";}
+</script> 
+
+
+
 </head>
 
 
@@ -101,27 +110,33 @@ display: inline-block;
 }
 </style>
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-0">
-    <div class="container">
-        <a href={%  url 'studentdashboard' %} class="navbar-brand"> <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/49/IIIT_Sri_City_Logo.png/220px-IIIT_Sri_City_Logo.png" style="width: 50px; height: 50px; margin-right: 8px;"> SPORTS MANAGEMENT SYSTEM</a>
-        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <div >
+        <a href="/studentdashboard/{{student.student_id}}" class="navbar-brand"> <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/49/IIIT_Sri_City_Logo.png/220px-IIIT_Sri_City_Logo.png" style="width: 100px; height: 100px; margin-right: 8px;"> SPORTS MANAGEMENT SYSTEM</a>
+        </div>
+        <div class="container">
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav">
                 <li class="nav-item px-2">
-                    <a href={%  url 'studentdashboard' %} class="nav-link active">Dashboard</a>
+                    <a href="/studentdashboard/{{student.student_id}}" class="nav-link active">Dashboard</a>
                 </li>
                 <li class="nav-item px-2">
-                    <a href={%  url 'studentschedules' %} class="nav-link">Schedules</a>
+                    <a href="/studentschedules/{{student.student_id}}" class="nav-link">Schedules</a>
                 </li>
                 <li class="nav-item px-2">
-                    <a href={%  url 'studentcomplaints' %} class="nav-link ">Complaints</a>
+                    <a href="/studentcomplaints/{{student.student_id}}" class="nav-link ">Complaints</a>
                 </li>
                 <li class="nav-item px-2">
-                    <a href={%  url 'studentmatchresults' %} class="nav-link">Matchresults</a>
+                    <a href="/studentmatchresults/{{student.student_id}}" class="nav-link">Matchresults</a>
                 </li>
-                <li class="nav-item px-2">
-                    <a href={%  url 'studentsettings' %} class="nav-link">Settings</a>
+                <li class="nav-item dropdown mr-3">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                        <i class="fas fa-user"></i>{{student.email}}
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="/studentsettings/{{student.student_id}}" class="dropdown-item">
+                            <i class="fas fa-cog"></i> Settings
+                        </a>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="{% url 'signout' %}" class="nav-link">
@@ -131,6 +146,7 @@ display: inline-block;
                 
             </ul>
         </div>
+      </div>
     </div>
 </nav>
 <br>

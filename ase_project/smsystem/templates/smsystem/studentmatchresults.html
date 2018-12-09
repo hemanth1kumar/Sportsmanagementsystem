@@ -60,6 +60,15 @@
   }
 </script>
 
+
+<script>
+window.location.hash="no-back-button";
+window.location.hash="Again-No-back-button";//again because google chrome don't insert first hash into history
+window.onhashchange=function(){window.location.hash="no-back-button";}
+</script> 
+
+
+
 </head>
 
 
@@ -71,36 +80,46 @@
     left: 300px;
 }
 </style>
+<style type="text/css">
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+}
+</style>
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-0">
-    <div class="container">
-        <a href={%  url 'studentdashboard' %} class="navbar-brand"> <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/49/IIIT_Sri_City_Logo.png/220px-IIIT_Sri_City_Logo.png" style="width: 50px; height: 50px; margin-right: 8px;"> SPORTS MANAGEMENT SYSTEM</a>
-        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <div >
+        <a href="/studentdashboard/{{student.student_id}}" class="navbar-brand"> <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/49/IIIT_Sri_City_Logo.png/220px-IIIT_Sri_City_Logo.png" style="width: 100px; height: 100px; margin-right: 8px;"> SPORTS MANAGEMENT SYSTEM</a>
+        </div>
+        <div class="container">
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav">
                 <li class="nav-item px-2">
-                    <a href={%  url 'studentdashboard' %} class="nav-link">Dashboard</a>
+                    <a href="/studentdashboard/{{student.student_id}}" class="nav-link">Dashboard</a>
                 </li>
                 <li class="nav-item px-2">
-                    <a href={%  url 'studentschedules' %} class="nav-link">Schedules</a>
+                    <a href="/studentschedules/{{student.student_id}}" class="nav-link">Schedules</a>
                 </li>
                 <li class="nav-item px-2">
-                    <a href={%  url 'studentcomplaints' %} class="nav-link">Complaints</a>
+                    <a href="/studentcomplaints/{{student.student_id}}" class="nav-link ">Complaints</a>
                 </li>
                 <li class="nav-item px-2">
-                    <a href={%  url 'studentmatchresults' %} class="nav-link active">Matchresults</a>
+                    <a href="/studentmatchresults/{{student.student_id}}" class="nav-link active">Matchresults</a>
                 </li>
-                
-            </ul>
-
-            <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown mr-3">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                        <i class="fas fa-user"></i>{{student.student_id}}
+                        <i class="fas fa-user"></i>{{student.email}}
                     </a>
                     <div class="dropdown-menu">
-                        <a href={%  url 'studentsettings' %} class="dropdown-item">
+                        <a href="/studentsettings/{{student.student_id}}" class="dropdown-item">
                             <i class="fas fa-cog"></i> Settings
                         </a>
                     </div>
@@ -110,8 +129,10 @@
                         <i class="fas fa-user-times"></i> Logout
                     </a>
                 </li>
+                
             </ul>
         </div>
+      </div>
     </div>
 </nav>
 <br>
@@ -134,22 +155,28 @@
             <table class="table table-striped">
               <thead class="thead-dark">
           <tr>
+                <th>
+                <form action="/studentmatchresults/{{student.student_id}}/" method="post">{%csrf_token %} 
+                <button value={{order}} name="order" type="submit">Date & Time</button>
+                </form>
+                </th>
+
                 <th> Sport Name</th>
                 <th> Team1</th>
                 <th>Team2</th>
-                <th> Date</th>
-                <th> Time</th>
+                
+                <th> venue</th>
                 <th> Result</th>
             </tr>
          </thead>
               <tbody >
                 {% for item in schedules %}
                 <tr >
-                  
+                  <td>{{item.datetime}}</td>  
                   <td>{{ item.sport.sport_name }}</td>
                   <td>{{ item.opponent_1 }}</td>
                   <td>{{ item.opponent_2 }}</td>
-                  <td>{{item.datetime}}</td>  
+                    
                   <td>{{item.venue}}</td>
                   <td>{{item.result}}</td>
                 </tr>

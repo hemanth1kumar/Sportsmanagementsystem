@@ -12,6 +12,11 @@
     <link rel="stylesheet" href="css/style.css">
     <title>B14rontend</title>
 
+<script>
+window.location.hash="no-back-button";
+window.location.hash="Again-No-back-button";//again because google chrome don't insert first hash into history
+window.onhashchange=function(){window.location.hash="no-back-button";}
+</script>
     <script type="text/javascript">
   function addRow() {
     var table=document.getElementById('MyTable');
@@ -126,11 +131,10 @@
 
 </style>
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-0">
-    <div class="container">
-        <a href={%  url 'adminhome' %}  class="navbar-brand"> <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/49/IIIT_Sri_City_Logo.png/220px-IIIT_Sri_City_Logo.png" style="width: 50px; height: 50px; margin-right: 8px;"> SPORTS MANAGEMENT SYSTEM</a>
-        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <div>
+        <a href={%  url 'adminhome' %}  class="navbar-brand"> <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/49/IIIT_Sri_City_Logo.png/220px-IIIT_Sri_City_Logo.png" style="width: 100px; height: 100px; margin-right: 8px;"> SPORTS MANAGEMENT SYSTEM</a>
+        </div>
+        <div class="container">
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav">
                 <li class="nav-item px-2">
@@ -201,7 +205,7 @@ window.onclick = function(event) {
 <section >
     
       <div class="row" >
-        <div class="card text-center mb-3" style="width:69%;height:1000px;" >
+        <div class="card text-center mb-3" style="width:68%;height:1000px;" >
           <div class="card text-center bg-primary text-white mb-3" ">
             <div class="col-md-13" >
                 <h1>
@@ -242,8 +246,7 @@ window.onclick = function(event) {
           </div>
           
        </div>
-      &nbsp 
-      <div style="width: :30"> 
+      <div style="width:30%"> 
           <div class="card text-center  mb-3" style="width: 100%  " >
           <div class="card text-center bg-primary text-white mb-3"  >
             <div class="col-md-13">
@@ -277,7 +280,7 @@ window.onclick = function(event) {
             </div>
 
           </div>
-            <div class="card text-center mb-4" style="width: 110%;background: #e4e4e4">
+            <div class="card text-center mb-4" style="background: #e4e4e4">
            <div class="card text-center bg-primary mb-3"   >
             <div class="col-md-13">
                 <h1>
