@@ -85,6 +85,7 @@ def studenthome(request,token_id):
 def studentdashboard(request,student_id):
 	student=Student.objects.filter(student_id=student_id)
 	performances=Performance.objects.filter(student=student[0])
+	games=Player.objects.filter(student=student[0])
 	totalscore=0
 	if len(performances)!=0:
 		for x in performances:
@@ -93,7 +94,7 @@ def studentdashboard(request,student_id):
 	else:
 		totalscore=1
 	announcements=Announcement.objects.all().order_by('-datetime')
-	context={'announcements':announcements,'performances':performances,'student':student[0],'totalscore':totalscore}
+	context={'announcements':announcements,'games':games,'performances':performances,'student':student[0],'totalscore':totalscore}
 	return render(request,'smsystem/studenthome.html',context)
 
 
