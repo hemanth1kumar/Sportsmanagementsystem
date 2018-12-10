@@ -578,7 +578,8 @@ def coachupdateperformance(request,coach_id):
 	performances=Performance.objects.all()
 	coach=Coach.objects.filter(coach_id=coach_id)
 	sports=Sport.objects.filter(sport_name=coach[0].sport.sport_name)
-	context={'announcements':announcements,'performances':performances,'sports':sports,'coach':coach[0]}
+	players=Player.objects.filter(sport=sports[0])
+	context={'announcements':announcements,'performances':performances,'players':players,'sports':sports,'coach':coach[0]}
 	return render(request,'smsystem/coachupdateperformance.html',context)
 
 
@@ -602,7 +603,8 @@ def coachaddperformance(request,coach_id):
 	performances=Performance.objects.all()
 	coach=Coach.objects.filter(coach_id=coach_id)
 	sports=Sport.objects.filter(sport_name=coach[0].sport.sport_name)
-	context={'announcements':announcements,'performances':performances,'sports':sports,'coach':coach[0]}
+	players=Player.objects.filter(sport=sports[0])
+	context={'announcements':announcements,'performances':performances,'players':players,'sports':sports,'coach':coach[0]}
 	return render(request,'smsystem/coachupdateperformance.html',context)
 
 
