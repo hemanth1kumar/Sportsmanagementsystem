@@ -249,6 +249,31 @@ window.onclick = function(event) {
         </center>    
 
               </div>
+                          
+             <div style="overflow: auto; height: 330px;" >   
+            <table class="table table-striped">
+              <thead class="thead-dark">
+
+                <tr>
+                  <th>Student id</th>
+                  <th>name</th>
+                  <th>sport name</th>
+                </tr>
+              </thead>
+              <tbody >
+                
+                {% for item in players %}
+                <tr >
+                  <td>{{ item.student.student_id }}</td>
+                  <td>{{ item.student.first_name }}{{ item.student.middle_name }}{{ item.student.last_name }}</td>
+                  <td>{{ item.sport.sport_name }}</td>
+                </tr>
+                {% endfor %}
+              </div>
+              </tbody>
+              
+            </table>
+           </div>
           
          </div>
       &nbsp 
@@ -260,6 +285,7 @@ window.onclick = function(event) {
                     <i class="fas fa-cog"></i> Announcements</h1>
             </div>
           </div>
+
           <table class="table table-striped">
               <thead class="thead-dark">
                 <tr>
